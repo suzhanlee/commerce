@@ -22,7 +22,7 @@ public class Member {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "member_id")
+    @Column(name = "id")
     private Long id;
 
     @Column(nullable = false)
@@ -36,21 +36,6 @@ public class Member {
     @Column(nullable = false)
     @Enumerated(STRING)
     private MemberRole memberRole;
-
-//    // 정적 팩터리 메서드 패턴
-//    public static Member createAdmin(String name) {
-//        Member member = new Member();
-//        member.name = name;
-//        member.memberRole = MemberRole.ROLE_ADMIN;
-//        return member;
-//    }
-//
-//    public static Member createNormal(String name) {
-//        Member member = new Member();
-//        member.name = name;
-//        member.memberRole = MemberRole.ROLE_NORMAL;
-//        return member;
-//    }
 
     public static Member createNormal(@NotNull String name, @NotNull String email, String phone) {
         Member member = new Member();
