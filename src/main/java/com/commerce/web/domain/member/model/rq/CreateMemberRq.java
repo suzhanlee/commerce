@@ -14,4 +14,5 @@ public class CreateMemberRq {
     private String email;
 
     private String phone;
+
 }

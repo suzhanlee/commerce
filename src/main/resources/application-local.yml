@@ -1,9 +1,9 @@
 spring:
   datasource:
     hikari:
-      jdbc-url: ${study.spring.datasource.url}
-      username: ${study.spring.datasource.username}
-      password: ${study.spring.datasource.password}
+      jdbc-url: ${commerce.spring.datasource.url}
+      username: ${commerce.spring.datasource.username}
+      password: ${commerce.spring.datasource.password}
   jpa:
     hibernate:
       ddl-auto: update
@@ -11,6 +11,7 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+
 logging:
   level:
     org:
@@ -18,3 +19,8 @@ logging:
         type:
           descriptor:
             sql: trace
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: on
