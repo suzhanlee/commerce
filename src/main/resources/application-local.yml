@@ -11,6 +11,7 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+
 logging:
   level:
     org:
@@ -18,3 +19,8 @@ logging:
         type:
           descriptor:
             sql: trace
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: on
