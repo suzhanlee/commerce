@@ -17,10 +17,11 @@ public class MemberController {
     private final MemberService memberService;
     private final FindMemberService findMemberService;
 
-
     @PostMapping(ApiPath.MEMBER)
     public void createMember(@Validated @RequestBody CreateMemberRq rq) {
         memberService.createMember(rq);
     }
+
+
 
 }

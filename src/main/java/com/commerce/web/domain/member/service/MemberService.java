@@ -15,8 +15,11 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     public void createMember(CreateMemberRq rq) {
+
         Member member = Member.createNormal(rq.getName(), rq.getEmail(), rq.getPhone());
         memberRepository.save(member);
+
     }
+
 }
 
