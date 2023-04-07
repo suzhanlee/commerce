@@ -1,11 +1,8 @@
-package com.commerce.db.entity.item;
+package com.commerce.db.entity;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
-import com.commerce.db.entity.BaseEntity;
-import com.commerce.db.entity.Category;
-import com.commerce.db.entity.Member;
 import com.commerce.web.domain.item.model.rq.CreateItemRq;
 import com.commerce.web.domain.item.model.rs.CreateItemRs;
 import com.commerce.web.domain.item.model.rs.FindItemDetailsRs;
@@ -22,11 +19,11 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-public class Item extends BaseEntity {
+public class Item extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "item_id")
+    @Column(name = "id")
     private Long id;
     private String name;
 
