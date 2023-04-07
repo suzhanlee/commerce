@@ -15,10 +15,16 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "category_id")
+    @Column(name = "id")
     private Long id;
 
     private String name;
+
+    public static Category createCategory(String name) {
+        Category category = new Category();
+        category.name = name;
+        return category;
+    }
 
 
 

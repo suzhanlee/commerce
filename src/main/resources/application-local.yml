@@ -24,3 +24,9 @@ decorator:
   datasource:
     p6spy:
       enable-logging: on
+
+springdoc:
+  swagger-ui:
+    display-request-duration: true
+    doc-expansion: none
+    tags-sorter: alpha
