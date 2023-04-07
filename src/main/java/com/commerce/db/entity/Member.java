@@ -22,7 +22,7 @@ public class Member {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "id")
+    @Column(name = "member_id")
     private Long id;
 
     @Column(nullable = false)
@@ -37,6 +37,7 @@ public class Member {
     @Enumerated(STRING)
     private MemberRole memberRole;
 
+
     public static Member createNormal(@NotNull String name, @NotNull String email, String phone) {
         Member member = new Member();
         member.name = name;
@@ -45,4 +46,5 @@ public class Member {
         member.memberRole = ROLE_NORMAL;
         return member;
     }
+
 }
