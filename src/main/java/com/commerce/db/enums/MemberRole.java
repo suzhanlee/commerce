@@ -8,4 +8,5 @@ public enum MemberRole {
     ROLE_NORMAL("일반회원");
 
     private final String name;
+
 }
