@@ -18,7 +18,7 @@ public class CreateItemRq {
     @NotEmpty
     private String itemName;
     @NotNull
-    private Integer price;
+    private Long price;
     @NotEmpty
     private String description;
     @NotEmpty

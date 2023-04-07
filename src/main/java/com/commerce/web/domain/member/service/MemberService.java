@@ -1,6 +1,6 @@
 package com.commerce.web.domain.member.service;
 
-import com.commerce.db.entity.Member;
+import com.commerce.db.entity.member.Member;
 import com.commerce.web.domain.member.model.rq.CreateMemberRq;
 import com.commerce.web.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ public class MemberService {
 
     public void createMember(CreateMemberRq rq) {
 
-        Member member = Member.createNormal(rq.getName(), rq.getEmail(), rq.getPhone());
+        Member member = Member.createSeller(rq.getName(), rq.getEmail(), rq.getPhone());
         memberRepository.save(member);
 
     }

@@ -1,6 +1,7 @@
 package com.commerce.web.domain.item.model.rs;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -8,7 +9,7 @@ import lombok.Getter;
 @Builder
 public class CreateItemRs {
 
-    @NotBlank
+    @NotNull
     private Long memberId;
     @NotBlank
     private String categoryName;
@@ -17,7 +18,7 @@ public class CreateItemRs {
     @NotBlank
     private Long itemId;
     @NotBlank
-    private int price;
+    private Long price;
     @NotBlank
     private String description;
     @NotBlank

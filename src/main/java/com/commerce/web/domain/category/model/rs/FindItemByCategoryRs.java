@@ -1,6 +1,6 @@
 package com.commerce.web.domain.category.model.rs;
 
-import com.commerce.db.entity.Item;
+import com.commerce.db.entity.item.Item;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

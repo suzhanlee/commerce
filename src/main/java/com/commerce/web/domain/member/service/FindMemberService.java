@@ -1,6 +1,6 @@
 package com.commerce.web.domain.member.service;
 
-import com.commerce.db.entity.Member;
+import com.commerce.db.entity.member.Member;
 import com.commerce.web.domain.member.model.rs.FindMemberByIdRs;
 import com.commerce.web.domain.member.repository.MemberRepository;
 import com.commerce.web.global.exception.CannotFindMemberException;

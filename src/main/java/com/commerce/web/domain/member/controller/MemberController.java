@@ -7,6 +7,7 @@ import com.commerce.web.domain.member.model.rs.FindMemberByIdRs;
 import com.commerce.web.domain.member.service.FindMemberService;
 import com.commerce.web.domain.member.service.MemberService;
 import com.commerce.web.global.path.ApiPath;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
+//@Tag()
 public class MemberController {
 
     private final MemberService memberService;

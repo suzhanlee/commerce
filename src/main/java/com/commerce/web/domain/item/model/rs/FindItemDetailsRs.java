@@ -18,7 +18,7 @@ public class FindItemDetailsRs {
     private String name;
 
     @Schema(description = "상품 가격")
-    private int price;
+    private Long price;
 
     @Schema(description = "상품 설명")
     private String description;

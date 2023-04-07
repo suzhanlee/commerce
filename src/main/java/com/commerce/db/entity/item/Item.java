@@ -1,8 +1,12 @@
-package com.commerce.db.entity;
+package com.commerce.db.entity.item;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
+import com.commerce.db.entity.BaseTimeEntity;
+import com.commerce.db.entity.Category;
+import com.commerce.db.entity.attachfile.AttachFile;
+import com.commerce.db.entity.member.Member;
 import com.commerce.web.domain.item.model.rq.CreateItemRq;
 import com.commerce.web.domain.item.model.rs.CreateItemRs;
 import com.commerce.web.domain.item.model.rs.FindItemDetailsRs;
@@ -12,7 +16,9 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,33 +27,41 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = PROTECTED)
 public class Item extends BaseTimeEntity {
 
+    //
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id")
     private Long id;
+
     private String name;
 
-    private int price;
+    private Long price;
 
+    @Column(columnDefinition = "text")
     private String description;
 
-    private String image;
+    @OneToOne(fetch = FetchType.LAZY)
+    private AttachFile thumbNail;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 
+    // 관리자, 구매자 구분
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
+    // 저자, 책번호
     private String author;
     private String isbn;
 
+    // 컴퓨터
     private int ram;
     private String cpu;
     private int ssd;
 
+    // 원산지
     private String origin;
 
     public void addCategory(Category category) {
@@ -65,7 +79,6 @@ public class Item extends BaseTimeEntity {
         item.name = createItemRq.getItemName();
         item.price = createItemRq.getPrice();
         item.description = createItemRq.getDescription();
-        item.image = createItemRq.getImage();
         item.author = createItemRq.getAuthor();
         item.isbn = createItemRq.getIsbn();
         item.cpu = createItemRq.getCpu();
@@ -88,7 +101,6 @@ public class Item extends BaseTimeEntity {
             .name(item.getName())
             .price(item.getPrice())
             .description(item.getDescription())
-            .image(item.getImage())
             .author(item.getAuthor())
             .isbn(item.getIsbn())
             .ram(item.getRam())
@@ -110,7 +122,6 @@ public class Item extends BaseTimeEntity {
             .itemName(item.getName())
             .price(item.getPrice())
             .description(item.getDescription())
-            .image(item.getImage())
             .author(item.getAuthor())
             .isbn(item.getIsbn())
             .ram(item.getRam())
