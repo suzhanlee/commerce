@@ -1,14 +1,14 @@
 package com.commerce.db.entity.item;
 
-import static jakarta.persistence.GenerationType.IDENTITY;
-import static lombok.AccessLevel.PROTECTED;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import static jakarta.persistence.GenerationType.IDENTITY;
+import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @Getter
@@ -20,9 +20,17 @@ public class Laptop extends Item {
     @Column(name = "id")
     private Long id;
 
-    // 컴퓨터
-    private int ram;
-    private String cpu;
-    private int ssd;
+    private Integer ram;
 
+    private String cpu;
+
+    private Integer ssd;
+
+    public static Laptop create(Integer ram, String cpu, Integer ssd) {
+        Laptop laptop = new Laptop();
+        laptop.ram = ram;
+        laptop.cpu = cpu;
+        laptop.ssd = ssd;
+        return laptop;
+    }
 }
