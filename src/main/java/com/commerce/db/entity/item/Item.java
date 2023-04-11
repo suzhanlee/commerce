@@ -52,18 +52,6 @@ public class Item extends BaseTimeEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    // 저자, 책번호
-    private String author;
-    private String isbn;
-
-    // 컴퓨터
-    private int ram;
-    private String cpu;
-    private int ssd;
-
-    // 원산지
-    private String origin;
-
     public void addCategory(Category category) {
         this.category = category;
     }
@@ -72,19 +60,18 @@ public class Item extends BaseTimeEntity {
         this.member = member;
     }
 
-
     public static Item toEntity(CreateItemRq createItemRq) {
 
         Item item = new Item();
         item.name = createItemRq.getItemName();
         item.price = createItemRq.getPrice();
         item.description = createItemRq.getDescription();
-        item.author = createItemRq.getAuthor();
-        item.isbn = createItemRq.getIsbn();
-        item.cpu = createItemRq.getCpu();
-        item.ram = createItemRq.getRam();
-        item.ssd = createItemRq.getSsd();
-        item.origin = createItemRq.getOrigin();
+//        item.author = createItemRq.getAuthor();
+//        item.isbn = createItemRq.getIsbn();
+//        item.cpu = createItemRq.getCpu();
+//        item.ram = createItemRq.getRam();
+//        item.ssd = createItemRq.getSsd();
+//        item.origin = createItemRq.getOrigin();
 
         return item;
     }

@@ -22,9 +22,9 @@ public class FindItemByCategoryRs {
 
         private Long itemId;
         private String name;
-        private int price;
+        private Long price;
         private String description;
-        private String image;
+
         private String author;
         private String isbn;
         private int ram;
@@ -37,7 +37,6 @@ public class FindItemByCategoryRs {
             this.name = item.getName();
             this.price = item.getPrice();
             this.description = item.getDescription();
-            this.image = item.getImage();
             this.author = item.getAuthor();
             this.isbn = item.getIsbn();
             this.ram = item.getRam();
