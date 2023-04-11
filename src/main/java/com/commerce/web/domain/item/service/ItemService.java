@@ -9,6 +9,8 @@ import com.commerce.web.domain.book.service.BookService;
 import com.commerce.web.domain.category.service.FindCategoryService;
 import com.commerce.web.domain.item.repository.ItemRepository;
 import com.commerce.web.domain.member.service.FindMemberService;
+import com.commerce.web.domain.vegetable.model.CreateVegetableRq;
+import com.commerce.web.domain.vegetable.service.VegetableService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,7 @@ public class ItemService {
     private final FindCategoryService findCategoryService;
     private final FindMemberService findMemberService;
     private final BookService bookService;
+    private final VegetableService vegetableService;
 
     public void saveBook(SaveBookRq rq) {
         String fileUid = rq.getFileUid();
@@ -31,9 +34,29 @@ public class ItemService {
         Category category = findCategoryService.findByIdOrElseThrow(rq.getCategoryId());
         Member member = findMemberService.findByIdOrElseThrow(rq.getMemberId());
 
-        Item item = Item.create(rq.getName(), rq.getPrice(), rq.getDescription(), attachFile, category, member);
+        Item item = Item.create(rq.getName(), rq.getPrice(), rq.getDescription(), attachFile,
+            category, member);
         itemRepository.save(item);
 
         bookService.saveBook(rq, item);
+    }
+
+    public void createVegetable(CreateVegetableRq rq) {
+
+        String fileUid = rq.getFileUid();
+
+        AttachFile attachFile = new AttachFile();
+
+        Category category = findCategoryService.findByIdOrElseThrow(rq.getCategoryId());
+        Member member = findMemberService.findByIdOrElseThrow(rq.getMemberId());
+
+        Item item = Item.create(rq.getName(), rq.getPrice(), rq.getDescription(), attachFile,
+            category, member);
+
+        itemRepository.save(item);
+
+        vegetableService.createVegetable(rq, item);
+
+
     }
 }
