@@ -20,7 +20,7 @@ public class FindMemberService {
         return FindMemberByIdRs.create(member);
     }
 
-    private Member findByIdOrElseThrow(Long memberId) {
+    public Member findByIdOrElseThrow(Long memberId) {
         return memberRepository.findById(memberId)
                 .orElseThrow(CannotFindMemberException::new);
     }
