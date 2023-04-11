@@ -1,14 +1,14 @@
 package com.commerce.db.entity.item;
 
-import static jakarta.persistence.GenerationType.IDENTITY;
-import static lombok.AccessLevel.PROTECTED;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import static jakarta.persistence.GenerationType.IDENTITY;
+import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @Getter
@@ -20,7 +20,11 @@ public class Vegetable extends Item {
     @Column(name = "id")
     private Long id;
 
-    // 원산지
-    private String origin;
+    private String origin;  // 원산지
 
+    public static Vegetable create(String origin) {
+        Vegetable vegetable = new Vegetable();
+        vegetable.origin = origin;
+        return vegetable;
+    }
 }

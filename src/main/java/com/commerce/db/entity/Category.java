@@ -27,11 +27,5 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private List<Item> itemList = new ArrayList<>();
 
-    public static Category createCategory(String name) {
-        Category category = new Category();
-        category.name = name;
-        return category;
-    }
-
 
 }
