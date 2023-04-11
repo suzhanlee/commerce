@@ -6,7 +6,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 import static jakarta.persistence.EnumType.STRING;
@@ -34,7 +33,7 @@ public class Member {
     private MemberRole memberRole;
 
 
-    public static Member createSeller(@NotNull String name, @NotNull String email, String phone) {
+    public static Member createSeller(String name, String email, String phone) {
         Member member = new Member();
         member.name = name;
         member.email = email;

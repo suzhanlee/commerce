@@ -13,21 +13,18 @@ import static lombok.AccessLevel.PROTECTED;
 @Entity
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-public class Book extends Item {
+public class Vegetable extends Item {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    private String author;  //저자
+    private String origin;  // 원산지
 
-    private String isbn;    // 책번호
-
-    public static Book create(String author, String isbn) {
-        Book book = new Book();
-        book.author = author;
-        book.isbn = isbn;
-        return book;
+    public static Vegetable create(String origin) {
+        Vegetable vegetable = new Vegetable();
+        vegetable.origin = origin;
+        return vegetable;
     }
 }

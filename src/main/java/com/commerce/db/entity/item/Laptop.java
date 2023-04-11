@@ -13,21 +13,24 @@ import static lombok.AccessLevel.PROTECTED;
 @Entity
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-public class Book extends Item {
+public class Laptop extends Item {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    private String author;  //저자
+    private Integer ram;
 
-    private String isbn;    // 책번호
+    private String cpu;
 
-    public static Book create(String author, String isbn) {
-        Book book = new Book();
-        book.author = author;
-        book.isbn = isbn;
-        return book;
+    private Integer ssd;
+
+    public static Laptop create(Integer ram, String cpu, Integer ssd) {
+        Laptop laptop = new Laptop();
+        laptop.ram = ram;
+        laptop.cpu = cpu;
+        laptop.ssd = ssd;
+        return laptop;
     }
 }

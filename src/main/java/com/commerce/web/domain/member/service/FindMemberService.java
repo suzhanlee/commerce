@@ -16,8 +16,12 @@ public class FindMemberService {
     private final MemberRepository memberRepository;
 
     public FindMemberByIdRs findMemberById(Long memberId) {
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(CannotFindMemberException::new);
+        Member member = findByIdOrElseThrow(memberId);
         return FindMemberByIdRs.create(member);
+    }
+
+    private Member findByIdOrElseThrow(Long memberId) {
+        return memberRepository.findById(memberId)
+                .orElseThrow(CannotFindMemberException::new);
     }
 }
