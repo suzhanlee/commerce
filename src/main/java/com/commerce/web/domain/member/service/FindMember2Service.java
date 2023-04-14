@@ -1,0 +1,30 @@
+package com.commerce.web.domain.member.service;
+
+import com.commerce.db.entity.member.Member;
+import com.commerce.db.entity.member.Member2;
+import com.commerce.web.domain.member.model.rs.FindMember2ByIdRs;
+import com.commerce.web.domain.member.model.rs.FindMemberByIdRs;
+import com.commerce.web.domain.member.repository.MemberRepository2;
+import com.commerce.web.global.exception.CannotFindMemberException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@RequiredArgsConstructor
+@Transactional(readOnly = true)
+public class FindMember2Service {
+
+    private final MemberRepository2 memberRepository;
+
+    public FindMember2ByIdRs findMemberById(Long memberId) {
+        Member2 member = findByIdOrElseThrow(memberId);
+        return FindMember2ByIdRs.create(member);
+    }
+
+
+    public Member2 findByIdOrElseThrow(Long memberId) {
+        return memberRepository.findById(memberId)
+                .orElseThrow(CannotFindMemberException::new);
+    }
+}

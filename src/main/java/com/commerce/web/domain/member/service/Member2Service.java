@@ -2,9 +2,11 @@ package com.commerce.web.domain.member.service;
 
 import com.commerce.db.entity.item.Item;
 import com.commerce.db.entity.member.Member;
+import com.commerce.db.entity.member.Member2;
 import com.commerce.web.domain.member.model.rq.CreateMemberRq;
 import com.commerce.web.domain.member.model.rq.DeleteMemberRq;
 import com.commerce.web.domain.member.repository.MemberRepository;
+import com.commerce.web.domain.member.repository.MemberRepository2;
 import com.commerce.web.global.exception.CannotFindMemberException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,12 +15,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class MemberService {
+public class Member2Service {
 
-    private final MemberRepository memberRepository;
+    private final MemberRepository2 memberRepository;
 
     public void createMember(CreateMemberRq rq) {
-        Member member = Member.createSeller(rq.getName(), rq.getEmail(), rq.getPhone());
+        Member2 member = Member2.createSeller(rq.getName());
         memberRepository.save(member);
     }
 
@@ -27,7 +29,7 @@ public class MemberService {
     }
 
     public void deleteItem(DeleteMemberRq rq) {
-        Member member = memberRepository.findById(rq.getMemberId())
+        Member2 member = memberRepository.findById(rq.getMemberId())
             .orElseThrow(CannotFindMemberException::new);
         member.getItemList().remove(0);
 

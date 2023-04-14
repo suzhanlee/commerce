@@ -1,14 +1,20 @@
 package com.commerce.db.entity.member;
 
+import com.commerce.db.entity.item.Item;
 import com.commerce.db.enums.member.MemberRole;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 
 import static jakarta.persistence.EnumType.STRING;
+import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Getter
@@ -17,7 +23,7 @@ public class Member {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "member_id")
+    @Column(name = "id")
     private Long id;
 
     @Column(nullable = false)
@@ -32,6 +38,8 @@ public class Member {
     @Enumerated(STRING)
     private MemberRole memberRole;
 
+    @OneToMany(fetch = LAZY, mappedBy = "member", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Item> itemList = new ArrayList<>();
 
     public static Member createSeller(String name, String email, String phone) {
         Member member = new Member();
