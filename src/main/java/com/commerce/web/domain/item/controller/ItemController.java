@@ -28,6 +28,7 @@ public class ItemController {
     public ResponseEntity<?> createItem(@RequestBody @Validated CreateItemRq createItemRq) {
 
         CreateItemRs response = itemService.createItem(createItemRq);
+
         return ResponseEntity.ok(response);
     }
 

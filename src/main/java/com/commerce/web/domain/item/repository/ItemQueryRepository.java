@@ -1,9 +1,8 @@
 package com.commerce.web.domain.item.repository;
 
-import static com.commerce.db.entity.item.QItem.item;
+import static com.commerce.db.entity.QItem.item;
 
-import com.commerce.db.entity.item.Item;
-import com.commerce.web.domain.category.model.rs.FindItemByCategoryRs;
+import com.commerce.db.entity.Item;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import java.util.List;

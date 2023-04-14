@@ -1,8 +1,8 @@
 package com.commerce.web.domain.item.service;
 
 import com.commerce.db.entity.Category;
+import com.commerce.db.entity.Item;
 import com.commerce.db.entity.Member;
-import com.commerce.db.entity.item.Item;
 import com.commerce.web.domain.category.repository.CategoryRepository;
 import com.commerce.web.domain.item.model.rq.CreateItemRq;
 import com.commerce.web.domain.item.model.rs.CreateItemRs;
@@ -25,8 +25,7 @@ public class ItemService {
 
     public CreateItemRs createItem(CreateItemRq createItemRq) {
 
-        Member findMember = memberRepository.findById(createItemRq.getMemberId()).orElseThrow(
-            CannotFindMemberException::new);
+        Member findMember = findMember(createItemRq);
 
         Item item = Item.toEntity(createItemRq);
 
@@ -39,5 +38,10 @@ public class ItemService {
         itemRepository.save(item);
 
         return Item.toCreateItemRs(item, findMember.getId());
+    }
+
+    private Member findMember(CreateItemRq createItemRq) {
+        return memberRepository.findById(createItemRq.getMemberId()).orElseThrow(
+            CannotFindMemberException::new);
     }
 }
