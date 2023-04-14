@@ -7,4 +7,7 @@ public class ApiPath {
     public static final String ITEM = "/api/item";
     public static final String ITEM_CATEGORY_ID = "/api/item/{category-id}";
 
+    public static final String BOOK = "/api/book";
+    public static final String VEGETABLE = "/api/vegetable";
+
 }

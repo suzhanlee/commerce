@@ -1,20 +1,15 @@
-package com.commerce.db.entity;
+package com.commerce.db.entity.member;
 
-import static com.commerce.db.enums.MemberRole.ROLE_NORMAL;
-import static jakarta.persistence.EnumType.STRING;
-import static jakarta.persistence.GenerationType.IDENTITY;
-
-import com.commerce.db.enums.MemberRole;
+import com.commerce.db.enums.member.MemberRole;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
 import lombok.Getter;
+
+import static jakarta.persistence.EnumType.STRING;
+import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Getter
 @Entity
@@ -38,12 +33,12 @@ public class Member {
     private MemberRole memberRole;
 
 
-    public static Member createNormal(@NotNull String name, @NotNull String email, String phone) {
+    public static Member createSeller(String name, String email, String phone) {
         Member member = new Member();
         member.name = name;
         member.email = email;
         member.phone = phone;
-        member.memberRole = ROLE_NORMAL;
+        member.memberRole = MemberRole.ROLE_SELLER;
         return member;
     }
 

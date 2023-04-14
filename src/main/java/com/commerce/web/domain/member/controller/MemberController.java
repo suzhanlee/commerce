@@ -7,6 +7,8 @@ import com.commerce.web.domain.member.model.rs.FindMemberByIdRs;
 import com.commerce.web.domain.member.service.FindMemberService;
 import com.commerce.web.domain.member.service.MemberService;
 import com.commerce.web.global.path.ApiPath;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,27 +21,31 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "멤버 컨트롤러")
 public class MemberController {
 
     private final MemberService memberService;
     private final FindMemberService findMemberService;
 
-
+    @Operation(summary = "", description = "")
     @PostMapping(ApiPath.MEMBER)
     public void createMember(@Validated @RequestBody CreateMemberRq rq) {
         memberService.createMember(rq);
     }
 
+    @Operation(summary = "", description = "")
     @GetMapping(ApiPath.MEMBER_ID)
     public FindMemberByIdRs findMemberById(@PathVariable("member-id") Long memberId) {
         return findMemberService.findMemberById(memberId);
     }
 
+    @Operation(summary = "", description = "")
     @PutMapping(ApiPath.MEMBER)
     public void updateMember(@Validated @RequestBody UpdateMemberRq rq) {
 
     }
 
+    @Operation(summary = "", description = "")
     @DeleteMapping(ApiPath.MEMBER)
     public void deleteMember(@Validated @RequestBody DeleteMemberRq rq) {
 

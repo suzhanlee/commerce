@@ -1,15 +1,16 @@
 package com.commerce.web.domain.item.service;
 
 import com.commerce.db.entity.Category;
-import com.commerce.db.entity.Item;
-import com.commerce.db.entity.Member;
-import com.commerce.web.domain.category.repository.CategoryRepository;
-import com.commerce.web.domain.item.model.rq.CreateItemRq;
-import com.commerce.web.domain.item.model.rs.CreateItemRs;
+import com.commerce.db.entity.attachfile.AttachFile;
+import com.commerce.db.entity.item.Item;
+import com.commerce.db.entity.member.Member;
+import com.commerce.web.domain.book.model.rq.SaveBookRq;
+import com.commerce.web.domain.book.service.BookService;
+import com.commerce.web.domain.category.service.FindCategoryService;
 import com.commerce.web.domain.item.repository.ItemRepository;
-import com.commerce.web.domain.member.repository.MemberRepository;
-import com.commerce.web.global.exception.CannotFindCategoryException;
-import com.commerce.web.global.exception.CannotFindMemberException;
+import com.commerce.web.domain.member.service.FindMemberService;
+import com.commerce.web.domain.vegetable.model.CreateVegetableRq;
+import com.commerce.web.domain.vegetable.service.VegetableService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,28 +21,42 @@ import org.springframework.transaction.annotation.Transactional;
 public class ItemService {
 
     private final ItemRepository itemRepository;
-    private final MemberRepository memberRepository;
-    private final CategoryRepository categoryRepository;
+    private final FindCategoryService findCategoryService;
+    private final FindMemberService findMemberService;
+    private final BookService bookService;
+    private final VegetableService vegetableService;
 
-    public CreateItemRs createItem(CreateItemRq createItemRq) {
+    public void saveBook(SaveBookRq rq) {
+        String fileUid = rq.getFileUid();
+        // TODO: 2023-04-11 Attachfile 찾는 로직
+        AttachFile attachFile = new AttachFile();
 
-        Member findMember = findMember(createItemRq);
+        Category category = findCategoryService.findByIdOrElseThrow(rq.getCategoryId());
+        Member member = findMemberService.findByIdOrElseThrow(rq.getMemberId());
 
-        Item item = Item.toEntity(createItemRq);
-
-        item.addMember(findMember);
-
-        Category findCategory = categoryRepository.findById(createItemRq.getCategoryId())
-            .orElseThrow(CannotFindCategoryException::new);
-
-        item.addCategory(findCategory);
+        Item item = Item.create(rq.getName(), rq.getPrice(), rq.getDescription(), attachFile,
+            category, member);
         itemRepository.save(item);
 
-        return Item.toCreateItemRs(item, findMember.getId());
+        bookService.saveBook(rq, item);
     }
 
-    private Member findMember(CreateItemRq createItemRq) {
-        return memberRepository.findById(createItemRq.getMemberId()).orElseThrow(
-            CannotFindMemberException::new);
+    public void createVegetable(CreateVegetableRq rq) {
+
+        String fileUid = rq.getFileUid();
+
+        AttachFile attachFile = new AttachFile();
+
+        Category category = findCategoryService.findByIdOrElseThrow(rq.getCategoryId());
+        Member member = findMemberService.findByIdOrElseThrow(rq.getMemberId());
+
+        Item item = Item.create(rq.getName(), rq.getPrice(), rq.getDescription(), attachFile,
+            category, member);
+
+        itemRepository.save(item);
+
+        vegetableService.createVegetable(rq, item);
+
+
     }
 }

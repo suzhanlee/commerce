@@ -1,30 +1,34 @@
-package com.commerce.db.entity;
+package com.commerce.db.entity.attachfile;
 
 import com.commerce.db.entity.item.Item;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.Getter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Getter
-public class Category {
+public class AttachFile {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    private String name;
+    @Column(nullable = false)
+    private String fileUid;
 
-    @OneToMany(mappedBy = "category")
-    private List<Item> itemList = new ArrayList<>();
+    @Column(nullable = false)
+    private String fileName;
+
+    @Column(nullable = false)
+    private String filePath;
+
+    @Column(nullable = false)
+    private Integer fileSize;
 
 }

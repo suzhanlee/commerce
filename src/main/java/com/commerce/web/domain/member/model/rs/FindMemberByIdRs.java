@@ -1,7 +1,7 @@
 package com.commerce.web.domain.member.model.rs;
 
-import com.commerce.db.entity.Member;
-import com.commerce.db.enums.MemberRole;
+import com.commerce.db.entity.member.Member;
+import com.commerce.db.enums.member.MemberRole;
 import lombok.Getter;
 
 @Getter
