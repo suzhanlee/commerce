@@ -7,27 +7,34 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    properties:
-      hibernate:
-        show_sql: true
-        format_sql: true
     open-in-view: false
-
-logging:
-  level:
-    org:
-      hibernate:
-        type:
-          descriptor:
-            sql: trace
 
 decorator:
   datasource:
     p6spy:
       enable-logging: on
 
+#springdoc:
+#  swagger-ui:
+#    display-request-duration: true
+#    doc-expansion: none
+#    tags-sorter: alpha
+
 springdoc:
+  api-docs:
+    enabled: true
   swagger-ui:
-    display-request-duration: true
+    path: /swagger-ui/index.html
+    groups-order: DESC
     doc-expansion: none
     tags-sorter: alpha
+    operationsSorter: method
+    disable-swagger-default-url: true
+    display-request-duration: true
+#  api-docs:
+#    path: /api-docs
+#  show-actuator: true
+#  default-consumes-media-type: application/json
+#  default-produces-media-type: application/json
+#  paths-to-match:
+#    - /v1/**

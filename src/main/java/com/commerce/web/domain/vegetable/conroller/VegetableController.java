@@ -22,7 +22,7 @@ public class VegetableController {
     @PostMapping(ApiPath.VEGETABLE)
     public void createVegetable(@Validated @RequestBody CreateVegetableRq rq) {
 
-        itemService.createVegetable(rq);
+//        itemService.createVegetable(rq);
 
     }
 }
