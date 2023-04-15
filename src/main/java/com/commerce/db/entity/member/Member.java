@@ -38,7 +38,7 @@ public class Member {
     @Enumerated(STRING)
     private MemberRole memberRole;
 
-    @OneToMany(fetch = LAZY, mappedBy = "member", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(fetch = LAZY, mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> itemList = new ArrayList<>();
 
     public static Member createSeller(String name, String email, String phone) {

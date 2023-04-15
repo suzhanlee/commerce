@@ -34,15 +34,12 @@ public class Item extends BaseTimeEntity {
     @Column(columnDefinition = "text")
     private String description;
 
-//    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-//    private AttachFile thumbNail;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 
     // 관리자, 구매자 구분
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "member_id")
     private Member member;
 
@@ -56,7 +53,6 @@ public class Item extends BaseTimeEntity {
         item.name = name;
         item.price = price;
         item.description = description;
-//        item.thumbNail = thumbNail;
         item.category = category;
         item.member = member;
         item.member2 = member2;

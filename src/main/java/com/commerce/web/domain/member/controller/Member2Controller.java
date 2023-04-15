@@ -50,9 +50,7 @@ public class Member2Controller {
     @Operation(summary = "", description = "")
     @DeleteMapping(ApiPath.MEMBER2)
     public void deleteMember(@Validated @RequestBody DeleteMemberRq rq) {
-
         memberService.deleteMember(rq);
-
     }
 
     @Operation(summary = "", description = "")

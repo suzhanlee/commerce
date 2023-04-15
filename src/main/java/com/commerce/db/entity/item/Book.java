@@ -28,15 +28,15 @@ public class Book {
 
     private String isbn;    // 책번호
 
-//    @OneToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "item_id")
-//    private Item item;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_id")
+    private Item item;
 
-//    public static Book create(String author, String isbn, Item item) {
-//        Book book = new Book();
-//        book.author = author;
-//        book.isbn = isbn;
-//        book.item = item;
-//        return book;
-//    }
+    public static Book create(String author, String isbn, Item item) {
+        Book book = new Book();
+        book.author = author;
+        book.isbn = isbn;
+        book.item = item;
+        return book;
+    }
 }
