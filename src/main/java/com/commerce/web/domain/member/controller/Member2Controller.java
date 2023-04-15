@@ -3,13 +3,16 @@ package com.commerce.web.domain.member.controller;
 import com.commerce.web.domain.member.model.rq.CreateMemberRq;
 import com.commerce.web.domain.member.model.rq.DeleteMemberRq;
 import com.commerce.web.domain.member.model.rq.UpdateMemberRq;
+import com.commerce.web.domain.member.model.rs.FindMember2ByIdRs;
 import com.commerce.web.domain.member.model.rs.FindMemberByIdRs;
+import com.commerce.web.domain.member.service.FindMember2Service;
 import com.commerce.web.domain.member.service.FindMemberService;
+import com.commerce.web.domain.member.service.Member2Service;
 import com.commerce.web.domain.member.service.MemberService;
 import com.commerce.web.global.path.ApiPath;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,40 +24,37 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "멤버 컨트롤러")
-public class MemberController {
+public class Member2Controller {
 
-    private final MemberService memberService;
-    private final FindMemberService findMemberService;
+    private final Member2Service memberService;
+    private final FindMember2Service findMemberService;
 
     @Operation(summary = "", description = "")
-    @PostMapping(ApiPath.MEMBER)
+    @PostMapping(ApiPath.MEMBER2)
     public void createMember(@Validated @RequestBody CreateMemberRq rq) {
         memberService.createMember(rq);
     }
 
     @Operation(summary = "", description = "")
-    @GetMapping(ApiPath.MEMBER_ID)
-    public FindMemberByIdRs findMemberById(@PathVariable("member-id") Long memberId) {
+    @GetMapping(ApiPath.MEMBER2_ID)
+    public FindMember2ByIdRs findMemberById(@PathVariable("member-id") Long memberId) {
         return findMemberService.findMemberById(memberId);
     }
 
     @Operation(summary = "", description = "")
-    @PutMapping(ApiPath.MEMBER)
+    @PutMapping(ApiPath.MEMBER2)
     public void updateMember(@Validated @RequestBody UpdateMemberRq rq) {
 
     }
 
     @Operation(summary = "", description = "")
-    @DeleteMapping(ApiPath.MEMBER)
+    @DeleteMapping(ApiPath.MEMBER2)
     public void deleteMember(@Validated @RequestBody DeleteMemberRq rq) {
-
         memberService.deleteMember(rq);
-
     }
 
     @Operation(summary = "", description = "")
-    @DeleteMapping(ApiPath.MEMBER_ITEM)
+    @DeleteMapping(ApiPath.MEMBER2_ITEM)
     public void deleteItemByMember(@Validated @RequestBody DeleteMemberRq rq) {
 
         memberService.deleteItem(rq);

@@ -15,8 +15,8 @@ public class SaveBookRq {
     @Schema(name = "설명")
     private String description;
 
-    @Schema(name = "썸네일 파일 UID")
-    private String fileUid;
+//    @Schema(name = "썸네일 파일 UID")
+//    private String fileUid;
 
     @Schema(name = "카테고리 ID")
     private Long categoryId;

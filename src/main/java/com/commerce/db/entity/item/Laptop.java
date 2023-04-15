@@ -13,7 +13,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Entity
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-public class Laptop extends Item {
+public class Laptop {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
