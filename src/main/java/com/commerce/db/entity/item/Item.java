@@ -4,10 +4,13 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
 import com.commerce.db.entity.BaseTimeEntity;
-import com.commerce.db.entity.Category;
+import com.commerce.db.entity.category.Category;
 import com.commerce.db.entity.member.Member;
-import com.commerce.db.entity.member.Member2;
+import com.commerce.db.enums.item.Book;
+import com.commerce.db.enums.item.Laptop;
+import com.commerce.db.enums.item.Vegetable;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -26,11 +29,8 @@ public class Item extends BaseTimeEntity {
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id")
     private Long id;
-
     private String name;
-
     private Long price;
-
     @Column(columnDefinition = "text")
     private String description;
 
@@ -43,19 +43,28 @@ public class Item extends BaseTimeEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member2_id")
-    private Member2 member2;
+    @Embedded
+    private Book book;
 
+    @Embedded
+    private Laptop laptop;
+
+    @Embedded
+    private Vegetable vegetable;
+
+    // 매개변수로 rq 받기 vs 아래처럼 하나씩 넣기 뭐가 다르지?
     public static Item create(String name, Long price, String description, Category category,
-        Member member, Member2 member2) {
+        Member member, Book book, Laptop laptop, Vegetable vegetable) {
         Item item = new Item();
         item.name = name;
         item.price = price;
         item.description = description;
         item.category = category;
         item.member = member;
-        item.member2 = member2;
+        item.book = book;
+        item.laptop = laptop;
+        item.vegetable = vegetable;
+
         return item;
     }
 }

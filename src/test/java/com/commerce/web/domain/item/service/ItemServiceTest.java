@@ -3,7 +3,7 @@
 //import static org.assertj.core.api.Assertions.assertThat;
 //import static org.mockito.Mockito.when;
 //
-//import com.commerce.db.entity.Category;
+//import com.commerce.db.entity.category.Category;
 //import com.commerce.db.entity.member.Member;
 //import com.commerce.db.entity.item.Item;
 //import com.commerce.web.domain.category.repository.CategoryRepository;

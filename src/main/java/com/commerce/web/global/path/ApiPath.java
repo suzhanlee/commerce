@@ -18,4 +18,5 @@ public class ApiPath {
     public static final String MEMBER2_ID = "/api/member2/{member-id}";
 
 
+    public static final String CATEGORY = "/api/category";
 }

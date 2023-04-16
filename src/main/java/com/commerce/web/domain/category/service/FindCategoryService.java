@@ -1,6 +1,6 @@
 package com.commerce.web.domain.category.service;
 
-import com.commerce.db.entity.Category;
+import com.commerce.db.entity.category.Category;
 import com.commerce.web.domain.category.repository.CategoryRepository;
 import com.commerce.web.global.exception.CannotFindCategoryException;
 import lombok.RequiredArgsConstructor;

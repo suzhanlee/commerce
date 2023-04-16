@@ -4,14 +4,13 @@ import com.p6spy.engine.common.ConnectionInformation;
 import com.p6spy.engine.event.JdbcEventListener;
 import com.p6spy.engine.spy.P6SpyOptions;
 import com.p6spy.engine.spy.appender.MessageFormattingStrategy;
-import org.hibernate.engine.jdbc.internal.FormatStyle;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.util.StringUtils;
-
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import org.hibernate.engine.jdbc.internal.FormatStyle;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.util.StringUtils;
 
 
 @Configuration

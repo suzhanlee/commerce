@@ -1,5 +1,9 @@
 package com.commerce.db.entity.member;
 
+import static jakarta.persistence.EnumType.STRING;
+import static jakarta.persistence.FetchType.LAZY;
+import static jakarta.persistence.GenerationType.IDENTITY;
+
 import com.commerce.db.entity.item.Item;
 import com.commerce.db.enums.member.MemberRole;
 import jakarta.persistence.CascadeType;
@@ -12,10 +16,6 @@ import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
-
-import static jakarta.persistence.EnumType.STRING;
-import static jakarta.persistence.FetchType.LAZY;
-import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Getter
 @Entity
