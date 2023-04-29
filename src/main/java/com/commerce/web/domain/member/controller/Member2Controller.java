@@ -4,15 +4,11 @@ import com.commerce.web.domain.member.model.rq.CreateMemberRq;
 import com.commerce.web.domain.member.model.rq.DeleteMemberRq;
 import com.commerce.web.domain.member.model.rq.UpdateMemberRq;
 import com.commerce.web.domain.member.model.rs.FindMember2ByIdRs;
-import com.commerce.web.domain.member.model.rs.FindMemberByIdRs;
 import com.commerce.web.domain.member.service.FindMember2Service;
-import com.commerce.web.domain.member.service.FindMemberService;
 import com.commerce.web.domain.member.service.Member2Service;
-import com.commerce.web.domain.member.service.MemberService;
 import com.commerce.web.global.path.ApiPath;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+@Deprecated
 @RestController
 @RequiredArgsConstructor
 public class Member2Controller {
