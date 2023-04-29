@@ -6,7 +6,7 @@ spring:
       password: ${commerce.spring.datasource.password}
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     open-in-view: false
 
 decorator:

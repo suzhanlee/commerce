@@ -15,9 +15,6 @@ public class ItemDto {
     @Schema(name = "상품설명")
     private String description;
 
-    @Schema(name = "썸네일 사진")
-    private String attachFileUid;
-
     @Schema(name = "카테고리 ID")
     private Long categoryId;
 

@@ -18,3 +18,8 @@ public class CreateVegetableRq {
     private String origin;
 
 }
+
+
+
+
+

@@ -16,7 +16,11 @@ public class Vegetable {
 
     }
 
-    public Vegetable(String origin) {
-        this.origin = origin;
+    public static Vegetable createVegetable(String origin) {
+        Vegetable vegetable = new Vegetable();
+        vegetable.origin = origin;
+        return vegetable;
     }
+
+
 }

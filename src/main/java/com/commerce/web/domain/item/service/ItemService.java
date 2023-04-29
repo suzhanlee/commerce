@@ -2,10 +2,9 @@ package com.commerce.web.domain.item.service;
 
 import com.commerce.db.entity.category.Category;
 import com.commerce.db.entity.item.Item;
-import com.commerce.db.entity.member.Member;
 import com.commerce.web.domain.category.service.FindCategoryService;
+import com.commerce.web.domain.item.model.dto.ItemDto;
 import com.commerce.web.domain.item.model.rq.DeleteItemRq;
-import com.commerce.web.domain.item.model.rq.SaveItemRq;
 import com.commerce.web.domain.item.repository.ItemRepository;
 import com.commerce.web.domain.member.service.FindMemberService;
 import com.commerce.web.global.exception.CannotFindItemException;
@@ -40,15 +39,16 @@ public class ItemService {
 ////        bookService.saveBook(rq, item);
 //    }
 
-    public void saveItem(SaveItemRq rq) {
+    public Long saveItem(ItemDto dto) {
 
-        Member findMember = findMemberService.findByIdOrElseThrow(rq.getMemberId());
-        Category findCategory = findCategoryService.findByIdOrElseThrow(rq.getCategoryId());
+        Category findCategory = findCategoryService.findByIdOrElseThrow(dto.getCategoryId());
 
-        Item item = Item.create(rq.getItemName(), rq.getPrice(), rq.getDescription(),
-            findCategory, findMember, rq.getBook(), rq.getLaptop(), rq.getVegetable());
+        Item item = Item.create(dto.getName(), dto.getPrice(), dto.getDescription(),
+            findCategory);
 
         itemRepository.save(item);
+
+        return item.getId();
     }
 
     public Item findItemOrElseThrow(Long itemId) {
