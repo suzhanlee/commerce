@@ -7,12 +7,8 @@ import lombok.Getter;
 @Getter
 public class LoginOauth2Rq {
 
-//    @Schema(name = "클라이언트 타입")
-//    private ClientType clientType;
-
-    private String clientId;
-
-    private String redirectUrl;
+    @Schema(name = "클라이언트 타입")
+    private ClientType clientType;
 
     @Schema(name = "Oauth2 인증 코드")
     private String code;

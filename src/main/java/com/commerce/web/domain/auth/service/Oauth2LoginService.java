@@ -1,41 +1,35 @@
 package com.commerce.web.domain.auth.service;
 
+import com.commerce.db.enums.auth.ClientType;
 import com.commerce.web.domain.auth.model.dto.JwtTokenDto;
 import com.commerce.web.domain.auth.model.rq.LoginOauth2Rq;
-import com.commerce.web.domain.auth.model.rs.CodeRs;
+import com.commerce.web.global.exception.AuthenticationException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import static com.commerce.db.enums.auth.ClientType.GOOGLE;
+import static com.commerce.db.enums.auth.ClientType.KAKAO;
+
 @Service
+@RequiredArgsConstructor
 public class Oauth2LoginService {
 
-    public String loginOauth2(LoginOauth2Rq rq) {
+    private final Oauth2KakaoService oauth2KakaoService;
+    private final Oauth2GoogleService oauth2GoogleService;
 
-        String kakaoUrl = "https://kauth.kakao.com/oauth/token?"
-            + "client_id=" + rq.getClientId()
-            + "&redirect_uri=" + rq.getRedirectUrl()
-            + "&code=" + rq.getCode()
-            + "&grant_type=authorization_code";
+    public JwtTokenDto loginOauth2(LoginOauth2Rq rq) {
 
-        return kakaoUrl;
+        ClientType clientType = rq.getClientType();
+        String code = rq.getCode();
+
+        if (KAKAO.equals(clientType)) {
+            return oauth2KakaoService.getToken(code);
+        }
+
+        if (GOOGLE.equals(clientType)) {
+            return oauth2GoogleService.getToken(code);
+        }
+
+        throw new AuthenticationException();
     }
-
-    public CodeRs loginOauth2code(String code) {
-
-        return CodeRs.createCodeRs(code);
-
-    }
-//
-//    public void getUserInfo(JwtTokenDto token) {
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//    }
-
-
 }

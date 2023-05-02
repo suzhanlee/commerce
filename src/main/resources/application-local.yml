@@ -8,17 +8,21 @@ spring:
     hibernate:
       ddl-auto: update
     open-in-view: false
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: da1e932d1b29e6590d9f88afda5c2a6b
+            redirect-uri: http://localhost:8080/api/login/oauth2
+            grant-type: authorization_code
+
+
 
 decorator:
   datasource:
     p6spy:
       enable-logging: on
-
-#springdoc:
-#  swagger-ui:
-#    display-request-duration: true
-#    doc-expansion: none
-#    tags-sorter: alpha
 
 springdoc:
   api-docs:
@@ -31,10 +35,3 @@ springdoc:
     operationsSorter: method
     disable-swagger-default-url: true
     display-request-duration: true
-#  api-docs:
-#    path: /api-docs
-#  show-actuator: true
-#  default-consumes-media-type: application/json
-#  default-produces-media-type: application/json
-#  paths-to-match:
-#    - /v1/**
