@@ -2,7 +2,10 @@ package com.commerce.web.global.path;
 
 public class ApiPath {
 
-    public static final String LOGIN_OAUTH2 = "/api/logint/oauth2";
+    public static final String LOGIN_OAUTH2 = "/api/login/oauth2";
+    public static final String LOGIN_OAUTH2_CODE = "/api/login/oauth2/code";
+
+    public static final String LOGIN_OAUTH2_TOKEN = "/api/login/oauth2/token";
 
     public static final String MEMBER = "/api/member";
     public static final String MEMBER_ITEM = "/api/member/item";

@@ -12,4 +12,7 @@ public class JwtTokenDto {
     @Schema(name = "만료시간")
     private String expiredDateTime;
 
+    public JwtTokenDto(String code) {
+        this.token = code;
+    }
 }
