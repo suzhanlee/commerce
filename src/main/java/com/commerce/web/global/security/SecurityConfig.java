@@ -11,11 +11,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-//    @Override
-//    protected void configure(HttpSecurity httpSecurity) throws Exception{
-//        httpSecurity.httpBasic().disable();
-//    }
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 

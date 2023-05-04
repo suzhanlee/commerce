@@ -8,5 +8,4 @@ public class SignUpRq {
     private String username;
     private String email;
 
-
 }

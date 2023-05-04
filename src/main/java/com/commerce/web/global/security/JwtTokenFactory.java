@@ -5,20 +5,28 @@ import static com.commerce.web.global.security.constant.JwtConstants.TOKEN_EXPIR
 
 import com.commerce.db.entity.member.Member;
 import com.commerce.web.domain.auth.model.dto.JwtTokenDto;
+import com.commerce.web.domain.member.repository.MemberRepository;
+import com.commerce.web.domain.member.service.MemberService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Date;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 @Component
+@RequiredArgsConstructor
 public class JwtTokenFactory {
 
     //    @Value()
     private String secretKey = "Z2l0QGdpdGh1Yi5jb206c3V6aGFubGVlL2NvbW1lcmNlLmdpdC1jb21tZXJjZS1wcm9qZWN0LXNlY3JldC1rZXk=";
-
+    private final MemberService memberService;
 
     public JwtTokenDto generateJwtToken(Member member) {
 
@@ -41,10 +49,11 @@ public class JwtTokenFactory {
 
     }
 
-    public boolean validateToken(JwtTokenDto jwtTokenDto) {
-        Date expiredDateTime = jwtTokenDto.getExpiredDateTime();
+    public boolean validateToken(String token) {
+        Claims claims = parseClaim(token);
+        Date expiredDateTime = claims.getExpiration();
 
-        if (!StringUtils.hasText(jwtTokenDto.getToken())) {
+        if (!StringUtils.hasText(token)) {
             return false;
         }
 
@@ -66,5 +75,11 @@ public class JwtTokenFactory {
         } catch (ExpiredJwtException e) {
             return e.getClaims();
         }
+    }
+
+    public Authentication getAuthentication(String token) {
+        UserDetails userDetails = memberService.loadUserByUsername(getUsername(token));
+
+        return new UsernamePasswordAuthenticationToken(userDetails, null);
     }
 }

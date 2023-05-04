@@ -52,6 +52,17 @@ public class MemberService implements UserDetailsService {
             .orElseThrow(() -> new RuntimeException(" 일치하는 회원이름이 없습니다."));
     }
 
+    public void registerMember(SignUpRq rq) {
+
+        String email = passwordEncoder.encode(rq.getEmail());
+
+        Member member = Member.createMemberByUsernameAndEmail(rq.getUsername(),
+            email);
+
+        memberRepository.save(member);
+
+    }
+
     public JwtTokenDto authenticate(JwtTokenDto jwtTokenDto) {
         String token = jwtTokenDto.getToken();
 
@@ -66,17 +77,6 @@ public class MemberService implements UserDetailsService {
         }
 
         return jwtTokenDto;
-    }
-
-    public void registerMember(SignUpRq rq) {
-
-        String email = passwordEncoder.encode(rq.getEmail());
-
-        Member member = Member.createMemberByUsernameAndEmail(rq.getUsername(),
-            email);
-
-        memberRepository.save(member);
-
     }
 }
 

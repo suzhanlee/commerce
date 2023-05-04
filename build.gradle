@@ -56,7 +56,7 @@ dependencies {
 	// spring doc
 	implementation 'org.springdoc:springdoc-openapi-ui:1.6.14'
 
-	// https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
+	// okhttp3
 	implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.10.0'
 
 
