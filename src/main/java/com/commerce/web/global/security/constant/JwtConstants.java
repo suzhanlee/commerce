@@ -7,5 +7,7 @@ public class JwtConstants {
     public static final String SIGN_IN_URL = "http://localhost:8080/api/signin";
     public static final String SIGN_UP_URL = "http://localhost:8080/api/signup";
 
+    public static final String APPLICATION_JSON = "application/json; charset=utf-8";
+
 
 }

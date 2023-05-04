@@ -4,16 +4,18 @@ import static com.commerce.web.domain.auth.constant.KakaoConstants.AUTHORIZATION
 import static com.commerce.web.domain.auth.constant.KakaoConstants.BEARER;
 import static com.commerce.web.domain.auth.constant.KakaoConstants.TOKEN_URL;
 import static com.commerce.web.domain.auth.constant.KakaoConstants.USER_INFO_URL;
+import static com.commerce.web.global.security.constant.JwtConstants.APPLICATION_JSON;
+import static com.commerce.web.global.security.constant.JwtConstants.SIGN_IN_URL;
+import static com.commerce.web.global.security.constant.JwtConstants.SIGN_UP_URL;
 
 import com.commerce.db.entity.member.Member;
 import com.commerce.web.domain.auth.constant.KakaoConstants;
 import com.commerce.web.domain.auth.model.dto.JwtTokenDto;
-import com.commerce.web.domain.auth.model.rq.SignUpRq;
 import com.commerce.web.domain.member.repository.MemberRepository;
 import com.commerce.web.global.exception.AuthenticationException;
-import com.commerce.web.global.path.ApiPath;
+import com.commerce.web.global.exception.SignInFailException;
+import com.commerce.web.global.exception.SignUpFailException;
 import com.commerce.web.global.security.JwtTokenFactory;
-import com.commerce.web.global.security.constant.JwtConstants;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
@@ -21,11 +23,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import nonapi.io.github.classgraph.json.JSONUtils;
-import okhttp3.FormBody;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Request.Builder;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import org.json.simple.JSONObject;
@@ -42,6 +42,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class Oauth2KakaoService {
 
     @Value("${spring.security.oauth2.client.registration.kakao.client-id}")
@@ -54,9 +55,7 @@ public class Oauth2KakaoService {
     private String grantType;
 
     private final JwtTokenFactory jwtTokenFactory;
-
     private final MemberRepository memberRepository;
-    private final ObjectMapper objectMapper;
 
     public JwtTokenDto getToken(String code) {
 
@@ -90,10 +89,10 @@ public class Oauth2KakaoService {
             }
 
             RequestBody requestBody = RequestBody.create(
-                okhttp3.MediaType.parse("application/json; charset=utf-8"),
+                okhttp3.MediaType.parse(APPLICATION_JSON),
                 postBody);
 
-            Request.Builder builder = new Request.Builder().url("http://localhost:8080/api/signup")
+            Request.Builder builder = new Request.Builder().url(SIGN_UP_URL)
                 .post(requestBody);
             Request request = builder.build();
 
@@ -105,10 +104,10 @@ public class Oauth2KakaoService {
             }
 
             if (response.isSuccessful()) {
-                System.out.println("회원가입 성공!");
+                log.info("회원가입 성공!");
                 return null;
             } else {
-                throw new RuntimeException("회원가입 실패");
+                throw new SignUpFailException();
             }
 
         }
@@ -131,10 +130,10 @@ public class Oauth2KakaoService {
         }
 
         RequestBody requestBody = RequestBody.create(
-            okhttp3.MediaType.parse("application/json; charset=utf-8"),
+            okhttp3.MediaType.parse(APPLICATION_JSON),
             postBody);
 
-        Request.Builder builder = new Request.Builder().url("http://localhost:8080/api/signin")
+        Request.Builder builder = new Request.Builder().url(SIGN_IN_URL)
             .post(requestBody);
         Request request = builder.build();
 
@@ -147,12 +146,12 @@ public class Oauth2KakaoService {
         }
 
         if (response.isSuccessful()) {
-            System.out.println("로그인 성공!");
+            log.info("로그인 성공");
+            return jwtTokenDto;
         } else {
-            throw new RuntimeException("로그인 실패");
+            throw new SignInFailException();
         }
 
-        return jwtTokenDto;
     }
 
     private Member getMemberByKaKaoToken(String kakaoToken) {
