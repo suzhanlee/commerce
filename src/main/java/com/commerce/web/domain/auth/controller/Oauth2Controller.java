@@ -36,7 +36,7 @@ public class Oauth2Controller {
     }
 
     @PostMapping(ApiPath.SIGNIN)
-    public JwtTokenDto signIn(@Validated JwtTokenDto jwtTokenDto) {
+    public JwtTokenDto signIn(@Validated @RequestBody JwtTokenDto jwtTokenDto) {
 
         if (jwtTokenFactory.validateToken(jwtTokenDto)) {
             throw new RuntimeException("토큰 시간 초과");
@@ -46,7 +46,7 @@ public class Oauth2Controller {
     }
 
     @PostMapping(ApiPath.SIGNUP)
-    public void signUp(@Validated SignUpRq rq) {
+    public void signUp(@Validated @RequestBody SignUpRq rq) {
 
         memberService.registerMember(rq);
     }

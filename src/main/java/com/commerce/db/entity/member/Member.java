@@ -65,6 +65,7 @@ public class Member implements UserDetails {
         Member member = new Member();
         member.name = username;
         member.email = email;
+        member.memberRole = MemberRole.ROLE_SELLER;
         return member;
 
     }
