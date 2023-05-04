@@ -16,6 +16,14 @@ spring:
             client-id: da1e932d1b29e6590d9f88afda5c2a6b
             redirect-uri: http://localhost:8080/api/login/oauth2
             grant-type: authorization_code
+          google:
+            client-id: 1030886493580-gnlvhtm98h1li8qbva8bn8rav5ir15m8.apps.googleusercontent.com
+            client-secret: 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
+            redirect-uri: http://localhost:8080/api/login/oauth2
+#            grant-type: authorization_code
+#            scope: profile,email
+
+
 
 
 
@@ -35,3 +43,4 @@ springdoc:
     operationsSorter: method
     disable-swagger-default-url: true
     display-request-duration: true
+

@@ -24,4 +24,10 @@ public class FindMemberService {
         return memberRepository.findById(memberId)
                 .orElseThrow(CannotFindMemberException::new);
     }
+
+    public Member findByUsernameOrElseThrow(String username) {
+        return memberRepository.findByName(username)
+            .orElseThrow(CannotFindMemberException::new);
+
+    }
 }
