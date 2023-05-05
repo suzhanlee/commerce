@@ -1,10 +1,7 @@
 package com.commerce.db.entity.member;
 
-import static jakarta.persistence.EnumType.STRING;
-import static jakarta.persistence.FetchType.LAZY;
-import static jakarta.persistence.GenerationType.IDENTITY;
-
 import com.commerce.db.entity.item.Item;
+import com.commerce.db.enums.auth.ClientType;
 import com.commerce.db.enums.member.MemberRole;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -13,16 +10,18 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import lombok.Getter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static jakarta.persistence.EnumType.STRING;
+import static jakarta.persistence.FetchType.LAZY;
+import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Getter
 @Entity
-public class Member implements UserDetails {
+public class Member {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -36,6 +35,10 @@ public class Member implements UserDetails {
     private String email;
 
     private String phone;
+
+    @Column(nullable = false)
+    @Enumerated(STRING)
+    private ClientType clientType;
 
     @Column(nullable = false)
     @Enumerated(STRING)
@@ -53,10 +56,11 @@ public class Member implements UserDetails {
         return member;
     }
 
-    public static Member createCustomer(String name, String email) {
+    public static Member createCustomer(String name, String email, ClientType clientType) {
         Member member = new Member();
         member.name = name;
         member.email = email;
+        member.clientType = clientType;
         member.memberRole = MemberRole.ROLE_CUSTOMER;
         return member;
     }
@@ -67,41 +71,6 @@ public class Member implements UserDetails {
         member.email = email;
         member.memberRole = MemberRole.ROLE_SELLER;
         return member;
-
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
-    @Override
-    public String getPassword() {
-        return null;
-    }
-
-    @Override
-    public String getUsername() {
-        return getName();
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
-    }
 }

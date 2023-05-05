@@ -1,6 +1,7 @@
 package com.commerce.web.domain.member.service;
 
 import com.commerce.db.entity.member.Member;
+import com.commerce.db.enums.auth.ClientType;
 import com.commerce.web.domain.member.model.rs.FindMemberByIdRs;
 import com.commerce.web.domain.member.repository.MemberRepository;
 import com.commerce.web.global.exception.CannotFindMemberException;
@@ -27,7 +28,11 @@ public class FindMemberService {
 
     public Member findByUsernameOrElseThrow(String username) {
         return memberRepository.findByName(username)
-            .orElseThrow(CannotFindMemberException::new);
+                .orElseThrow(CannotFindMemberException::new);
+    }
 
+    public Member findByEmailAndClientTypeOrElseNull(String email, ClientType clientType) {
+        return memberRepository.findByEmailAndClientType(email, clientType)
+                .orElse(null);
     }
 }
