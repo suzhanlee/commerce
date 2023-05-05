@@ -1,8 +1,5 @@
 package com.commerce.web.global.security;
 
-import static com.commerce.web.global.security.constant.JwtConstants.EMAIL;
-import static com.commerce.web.global.security.constant.JwtConstants.TOKEN_EXPIRE_TIME;
-
 import com.commerce.db.entity.member.Member;
 import com.commerce.web.domain.auth.model.dto.JwtTokenDto;
 import com.commerce.web.domain.member.service.FindMemberService;
@@ -11,15 +8,17 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import java.util.Date;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+
+import java.util.Date;
+
+import static com.commerce.web.global.security.constant.JwtConstants.EMAIL;
+import static com.commerce.web.global.security.constant.JwtConstants.TOKEN_EXPIRE_TIME;
 
 @Component
 @RequiredArgsConstructor
@@ -42,11 +41,11 @@ public class JwtTokenFactory {
         Date expiredDate = new Date(now.getTime() + TOKEN_EXPIRE_TIME);
 
         String token = Jwts.builder()
-            .setClaims(claims)
-            .setIssuedAt(now)
-            .setExpiration(expiredDate)
-            .signWith(SignatureAlgorithm.HS512, secretKey)
-            .compact();
+                .setClaims(claims)
+                .setIssuedAt(now)
+                .setExpiration(expiredDate)
+                .signWith(SignatureAlgorithm.HS512, secretKey)
+                .compact();
 
         return JwtTokenDto.createJwtTokenDto(token, String.valueOf(expiredDate));
 
@@ -68,7 +67,7 @@ public class JwtTokenFactory {
     }
 
     public String getEmail(String token) {
-        return (String)parseClaim(token).get("email");
+        return (String) parseClaim(token).get("email");
     }
 
     private Claims parseClaim(String token) {
@@ -96,8 +95,6 @@ public class JwtTokenFactory {
     }
 
     public Authentication getAuthentication(String token) {
-        UserDetails userDetails = memberService.loadUserByUsername(getUsername(token));
-
-        return new UsernamePasswordAuthenticationToken(userDetails, null);
+        return null;
     }
 }

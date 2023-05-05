@@ -2,12 +2,9 @@ package com.commerce.web.domain.auth.controller;
 
 import com.commerce.web.domain.auth.model.dto.JwtTokenDto;
 import com.commerce.web.domain.auth.model.rq.LoginOauth2Rq;
-import com.commerce.web.domain.auth.model.rq.SignUpRq;
 import com.commerce.web.domain.auth.service.Oauth2LoginService;
-import com.commerce.web.domain.member.service.MemberService;
 import com.commerce.web.global.path.ApiPath;
 import com.commerce.web.global.security.JwtTokenFactory;
-import io.jsonwebtoken.ExpiredJwtException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class Oauth2Controller {
 
     private final Oauth2LoginService oauth2LoginService;
-    private final MemberService memberService;
     private final JwtTokenFactory jwtTokenFactory;
 
     @PostMapping(ApiPath.LOGIN_OAUTH2)
@@ -43,12 +39,6 @@ public class Oauth2Controller {
         }
 
         return jwtTokenFactory.authenticate(jwtTokenDto);
-    }
-
-    @PostMapping(ApiPath.SIGNUP)
-    public void signUp(@Validated @RequestBody SignUpRq rq) {
-
-        memberService.registerMember(rq);
     }
 
 }
