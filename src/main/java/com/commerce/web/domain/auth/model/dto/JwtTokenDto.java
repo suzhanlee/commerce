@@ -11,9 +11,9 @@ public class JwtTokenDto {
     private String token;
 
     @Schema(name = "만료시간")
-    private Date expiredDateTime;
+    private String expiredDateTime;
 
-    public static JwtTokenDto createJwtTokenDto(String token, Date expiredDateTime) {
+    public static JwtTokenDto createJwtTokenDto(String token, String expiredDateTime) {
         JwtTokenDto jwtTokenDto = new JwtTokenDto();
         jwtTokenDto.token = token;
         jwtTokenDto.expiredDateTime = expiredDateTime;

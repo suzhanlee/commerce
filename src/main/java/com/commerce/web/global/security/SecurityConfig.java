@@ -1,5 +1,7 @@
 package com.commerce.web.global.security;
 
+import static com.commerce.web.global.security.constant.SecurityConstants.AUTH_WHITELIST;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,12 +18,18 @@ public class SecurityConfig {
 
         http.httpBasic().disable()
             .csrf().disable().sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
-            .authorizeHttpRequests()
-            .anyRequest().permitAll();
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        http.authorizeHttpRequests(authorize -> authorize
+            .shouldFilterAllDispatcherTypes(false)
+            .requestMatchers(AUTH_WHITELIST)
+            .permitAll()
+            .anyRequest()
+            .authenticated());
+
 
         return http.build();
     }
+
 
 }

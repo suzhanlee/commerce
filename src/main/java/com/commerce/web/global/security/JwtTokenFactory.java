@@ -5,7 +5,7 @@ import static com.commerce.web.global.security.constant.JwtConstants.TOKEN_EXPIR
 
 import com.commerce.db.entity.member.Member;
 import com.commerce.web.domain.auth.model.dto.JwtTokenDto;
-import com.commerce.web.domain.member.repository.MemberRepository;
+import com.commerce.web.domain.member.service.FindMemberService;
 import com.commerce.web.domain.member.service.MemberService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -13,6 +13,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Date;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,9 +25,11 @@ import org.springframework.util.StringUtils;
 @RequiredArgsConstructor
 public class JwtTokenFactory {
 
-    //    @Value()
-    private String secretKey = "Z2l0QGdpdGh1Yi5jb206c3V6aGFubGVlL2NvbW1lcmNlLmdpdC1jb21tZXJjZS1wcm9qZWN0LXNlY3JldC1rZXk=";
+    @Value("${jwt.secret}")
+    private String secretKey;
     private final MemberService memberService;
+    private final PasswordEncoder passwordEncoder;
+    private final FindMemberService findMemberService;
 
     public JwtTokenDto generateJwtToken(Member member) {
 
@@ -45,7 +48,7 @@ public class JwtTokenFactory {
             .signWith(SignatureAlgorithm.HS512, secretKey)
             .compact();
 
-        return JwtTokenDto.createJwtTokenDto(token, expiredDate);
+        return JwtTokenDto.createJwtTokenDto(token, String.valueOf(expiredDate));
 
     }
 
@@ -75,6 +78,21 @@ public class JwtTokenFactory {
         } catch (ExpiredJwtException e) {
             return e.getClaims();
         }
+    }
+
+    public JwtTokenDto authenticate(JwtTokenDto jwtTokenDto) {
+        String token = jwtTokenDto.getToken();
+
+        String username = getUsername(token);
+        String email = getEmail(token);
+
+        Member findMember = findMemberService.findByUsernameOrElseThrow(username);
+
+        if (passwordEncoder.matches(email, findMember.getEmail())) {
+            throw new RuntimeException("이메일이 일치하지 않습니다");
+        }
+
+        return jwtTokenDto;
     }
 
     public Authentication getAuthentication(String token) {

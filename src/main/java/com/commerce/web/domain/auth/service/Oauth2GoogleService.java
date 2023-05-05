@@ -7,6 +7,7 @@ import static com.commerce.web.domain.auth.constant.GoogleConstant.GRANT_TYPE;
 import static com.commerce.web.domain.auth.constant.GoogleConstant.REDIRECT_URI;
 import static com.commerce.web.domain.auth.constant.GoogleConstant.TOKEN_URL;
 
+import com.commerce.web.domain.auth.constant.GoogleConstant;
 import com.commerce.web.domain.auth.constant.KakaoConstants;
 import com.commerce.web.domain.auth.model.dto.JwtTokenDto;
 import com.commerce.web.global.exception.AuthenticationException;
@@ -59,7 +60,7 @@ public class Oauth2GoogleService {
         params.add(CLIENT_ID, clientId);
         params.add(CLIENT_SECRET, clientSecret);
         params.add(REDIRECT_URI, redirectUri);
-        params.add(GRANT_TYPE, KakaoConstants.GRANT_TYPE);
+        params.add(GRANT_TYPE, grantType);
 
         HttpEntity<LinkedMultiValueMap<String, String>> httpEntity = new HttpEntity<>(params,
             headers);

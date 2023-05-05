@@ -18,8 +18,10 @@ import com.commerce.web.global.exception.SignUpFailException;
 import com.commerce.web.global.security.JwtTokenFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -115,19 +117,22 @@ public class Oauth2KakaoService {
         // 로그인
         JwtTokenDto jwtTokenDto = jwtTokenFactory.generateJwtToken(member);
 
-        Map<String, Object> params = new HashMap<>();
+        Map<String, Object> params = new LinkedHashMap<>();
 
         params.put("token", jwtTokenDto.getToken());
         params.put("expiredDateTime", jwtTokenDto.getExpiredDateTime());
 
-        JSONObject jsonObject = new JSONObject(params);
-        ObjectMapper objectMapper = new ObjectMapper();
-        String postBody;
-        try {
-            postBody = objectMapper.writeValueAsString(jsonObject);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+//        JSONObject jsonObject = new JSONObject(params);
+//        ObjectMapper objectMapper = new ObjectMapper();
+
+        Gson gson = new Gson();
+        String postBody = gson.toJson(params);
+//        String postBody;
+//        try {
+//            postBody = objectMapper.writeValueAsString(jsonObject);
+//        } catch (JsonProcessingException e) {
+//            throw new RuntimeException(e);
+//        }
 
         RequestBody requestBody = RequestBody.create(
             okhttp3.MediaType.parse(APPLICATION_JSON),

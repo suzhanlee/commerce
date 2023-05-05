@@ -24,7 +24,6 @@ public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
-    private final JwtTokenFactory jwtTokenFactory;
 
     public void createMember(CreateMemberRq rq) {
         Member member = Member.createSeller(rq.getName(), rq.getEmail(), rq.getPhone());
@@ -61,22 +60,6 @@ public class MemberService implements UserDetailsService {
 
         memberRepository.save(member);
 
-    }
-
-    public JwtTokenDto authenticate(JwtTokenDto jwtTokenDto) {
-        String token = jwtTokenDto.getToken();
-
-        String username = jwtTokenFactory.getUsername(token);
-        String email = jwtTokenFactory.getEmail(token);
-
-        Member findMember = memberRepository.findByName(username)
-            .orElseThrow(() -> new RuntimeException(" 일치하는 회원이름이 없습니다."));
-
-        if (passwordEncoder.matches(email, findMember.getEmail())) {
-            throw new RuntimeException("이메일이 일치하지 않습니다");
-        }
-
-        return jwtTokenDto;
     }
 }
 
