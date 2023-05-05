@@ -80,37 +80,41 @@ public class Oauth2KakaoService {
 
             params.put("username", member.getName());
             params.put("email", member.getEmail());
+//
+//            HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<>();
+//
+//            getResponse(httpEntity)
 
-            JSONObject jsonObject = new JSONObject(params);
-            ObjectMapper objectMapper = new ObjectMapper();
-            String postBody;
-            try {
-                postBody = objectMapper.writeValueAsString(jsonObject);
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
-            }
-
-            RequestBody requestBody = RequestBody.create(
-                okhttp3.MediaType.parse(APPLICATION_JSON),
-                postBody);
-
-            Request.Builder builder = new Request.Builder().url(SIGN_UP_URL)
-                .post(requestBody);
-            Request request = builder.build();
-
-            Response response = null;
-            try {
-                response = client.newCall(request).execute();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-            if (response.isSuccessful()) {
-                log.info("회원가입 성공!");
-                return null;
-            } else {
-                throw new SignUpFailException();
-            }
+//            JSONObject jsonObject = new JSONObject(params);
+//            ObjectMapper objectMapper = new ObjectMapper();
+//            String postBody;
+//            try {
+//                postBody = objectMapper.writeValueAsString(jsonObject);
+//            } catch (JsonProcessingException e) {
+//                throw new RuntimeException(e);
+//            }
+//
+//            RequestBody requestBody = RequestBody.create(
+//                okhttp3.MediaType.parse(APPLICATION_JSON),
+//                postBody);
+//
+//            Request.Builder builder = new Request.Builder().url(SIGN_UP_URL)
+//                .post(requestBody);
+//            Request request = builder.build();
+//
+//            Response response = null;
+//            try {
+//                response = client.newCall(request).execute();
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//
+//            if (response.isSuccessful()) {
+//                log.info("회원가입 성공!");
+//                return null;
+//            } else {
+//                throw new SignUpFailException();
+//            }
 
         }
 
