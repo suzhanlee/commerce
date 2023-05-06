@@ -3,6 +3,7 @@ package com.commerce.web.domain.auth.service;
 import static com.commerce.web.domain.auth.constant.GoogleConstant.ACCESS_TOKEN;
 import static com.commerce.web.domain.auth.constant.GoogleConstant.CLIENT_ID;
 import static com.commerce.web.domain.auth.constant.GoogleConstant.CLIENT_SECRET;
+import static com.commerce.web.domain.auth.constant.GoogleConstant.CODE;
 import static com.commerce.web.domain.auth.constant.GoogleConstant.GRANT_TYPE;
 import static com.commerce.web.domain.auth.constant.GoogleConstant.REDIRECT_URI;
 import static com.commerce.web.domain.auth.constant.GoogleConstant.TOKEN_URL;
@@ -54,18 +55,21 @@ public class Oauth2GoogleService {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.set("Authorization", "Basic c3FIOG9vSGV4VHo4QzAyg5T1JvNnJoZ3ExaVNyQWw6WjRsanRKZG5lQk9qUE1BVQ");
 
         LinkedMultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 
         params.add(CLIENT_ID, clientId);
         params.add(CLIENT_SECRET, clientSecret);
+        params.add(CODE, code);
         params.add(REDIRECT_URI, redirectUri);
         params.add(GRANT_TYPE, grantType);
 
-        HttpEntity<LinkedMultiValueMap<String, String>> httpEntity = new HttpEntity<>(params,
-            headers);
+        HttpEntity<LinkedMultiValueMap<String, String>> httpEntity = new HttpEntity<>(params, headers);
 
         JSONObject jsonObject = getResponse(httpEntity, TOKEN_URL);
+
+        System.out.println("jsonObject = " + jsonObject);
 
         return (String) jsonObject.get(ACCESS_TOKEN);
 

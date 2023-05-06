@@ -1,11 +1,7 @@
 package com.commerce.web.domain.auth.constant;
 
 public class GoogleConstant {
-
     public static final String TOKEN_URL = "https://oauth2.googleapis.com/token";
-//    public static final String USER_INFO_URL = "https://kapi.kakao.com/v2/user/me";
-
-
     public static final String GRANT_TYPE = "grant_type";
     public static final String CLIENT_ID = "client_id";
     public static final String REDIRECT_URI = "redirect_uri";
