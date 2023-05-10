@@ -64,8 +64,7 @@ public class Oauth2KakaoService {
         memberLogInLogRepository.save(memberLogInLog);
 
         // 로그인
-//        return jwtTokenFactory.generateJwtToken(member);
-        return null;
+        return jwtTokenFactory.generateJwtToken(member);
     }
 
     private Member getMemberByKaKaoToken(String kakaoToken) {

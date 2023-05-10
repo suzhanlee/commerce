@@ -31,14 +31,14 @@ public class Oauth2Controller {
         return code;
     }
 
-    @PostMapping(ApiPath.SIGNIN)
-    public JwtTokenDto signIn(@Validated @RequestBody JwtTokenDto jwtTokenDto) {
-
-        if (jwtTokenFactory.validateToken(jwtTokenDto.getToken())) {
-            throw new RuntimeException("토큰 시간 초과");
-        }
-
-        return jwtTokenFactory.authenticate(jwtTokenDto);
-    }
+//    @PostMapping(ApiPath.SIGNIN)
+//    public JwtTokenDto signIn(@Validated @RequestBody JwtTokenDto jwtTokenDto) {
+//
+//        if (jwtTokenFactory.validateToken(jwtTokenDto.getToken())) {
+//            throw new RuntimeException("토큰 시간 초과");
+//        }
+//
+//        return jwtTokenFactory.authenticate(jwtTokenDto);
+//    }
 
 }

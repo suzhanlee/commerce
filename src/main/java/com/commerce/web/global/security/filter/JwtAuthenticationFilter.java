@@ -3,46 +3,42 @@ package com.commerce.web.global.security.filter;
 import static com.commerce.web.global.security.constant.JwtConstants.TOKEN_HEADER;
 import static com.commerce.web.global.security.constant.JwtConstants.TOKEN_PREFIX;
 
-import com.commerce.web.global.security.JwtTokenFactory;
+import com.commerce.web.global.security.JwtTokenProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
-import org.springframework.util.StringUtils;
-import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.filter.GenericFilterBean;
 
-@Component
 @RequiredArgsConstructor
-public class JwtAuthenticationFilter extends OncePerRequestFilter {
+public class JwtAuthenticationFilter extends GenericFilterBean {
 
-    private final JwtTokenFactory jwtTokenFactory;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-        FilterChain filterChain) throws ServletException, IOException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+        throws IOException, ServletException {
 
-        String token = resolveTokenFromRequest(request);
+        String token = resolveTokenFromRequest((HttpServletRequest) request);
 
-        if (StringUtils.hasText(token) && jwtTokenFactory.validateToken(token)) {
-
-            Authentication auth = jwtTokenFactory.getAuthentication(token);
-            SecurityContextHolder.getContext().setAuthentication(auth);
-
+        if (token != null && jwtTokenProvider.validateToken(token)) {
+            Authentication authentication = jwtTokenProvider.getAuthentication(token);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
-        filterChain.doFilter(request, response);
-
+        chain.doFilter(request, response);
     }
 
-    public String resolveTokenFromRequest(HttpServletRequest rq) {
 
-        String token = rq.getHeader(TOKEN_HEADER);
+    public String resolveTokenFromRequest(HttpServletRequest request) {
+
+        String token = request.getHeader(TOKEN_HEADER);
 
         if (!ObjectUtils.isEmpty(token) && token.startsWith(TOKEN_PREFIX)) {
 
@@ -51,4 +47,5 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         return null;
     }
+
 }

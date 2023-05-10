@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import static com.commerce.db.enums.auth.ClientType.GOOGLE;
 import static com.commerce.db.enums.auth.ClientType.KAKAO;
+import static com.commerce.db.enums.auth.ClientType.NORMAL;
 
 @Service
 @RequiredArgsConstructor

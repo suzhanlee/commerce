@@ -26,9 +26,6 @@ public class JwtTokenFactory {
 
     @Value("${jwt.secret}")
     private String secretKey;
-    private final MemberService memberService;
-    private final PasswordEncoder passwordEncoder;
-    private final FindMemberService findMemberService;
 
     public JwtTokenDto generateJwtToken(Member member) {
 
@@ -77,21 +74,6 @@ public class JwtTokenFactory {
         } catch (ExpiredJwtException e) {
             return e.getClaims();
         }
-    }
-
-    public JwtTokenDto authenticate(JwtTokenDto jwtTokenDto) {
-        String token = jwtTokenDto.getToken();
-
-        String username = getUsername(token);
-        String email = getEmail(token);
-
-        Member findMember = findMemberService.findByUsernameOrElseThrow(username);
-
-        if (passwordEncoder.matches(email, findMember.getEmail())) {
-            throw new RuntimeException("이메일이 일치하지 않습니다");
-        }
-
-        return jwtTokenDto;
     }
 
     public Authentication getAuthentication(String token) {

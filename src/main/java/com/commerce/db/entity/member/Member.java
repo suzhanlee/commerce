@@ -44,6 +44,8 @@ public class Member {
     @Enumerated(STRING)
     private MemberRole memberRole;
 
+    private String password;
+
     @OneToMany(fetch = LAZY, mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> itemList = new ArrayList<>();
 
