@@ -2,7 +2,6 @@ package com.commerce.web.domain.member.service;
 
 import com.commerce.db.entity.item.Item;
 import com.commerce.db.entity.member.Member;
-import com.commerce.web.domain.auth.model.rq.SignUpRq;
 import com.commerce.web.domain.member.model.rq.CreateMemberRq;
 import com.commerce.web.domain.member.model.rq.DeleteMemberRq;
 import com.commerce.web.domain.member.repository.MemberRepository;

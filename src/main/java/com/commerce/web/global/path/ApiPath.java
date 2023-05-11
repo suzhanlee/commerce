@@ -2,6 +2,8 @@ package com.commerce.web.global.path;
 
 public class ApiPath {
 
+
+    public static final String SIGNIN = "/api/signin";
     public static final String LOGIN_OAUTH2 = "/api/login/oauth2";
     public static final String MEMBER = "/api/member";
     public static final String MEMBER_ITEM = "/api/member/item";
@@ -19,6 +21,6 @@ public class ApiPath {
     public static final String MEMBER2_ID = "/api/member2/{member-id}";
 
 
-    public static final String SIGNIN = "/api/signin";
+//    public static final String SIGNIN = "/api/signin";
     public static final String SIGNUP = "/api/signup";
 }
