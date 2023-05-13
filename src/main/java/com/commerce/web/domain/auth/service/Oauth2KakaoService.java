@@ -59,11 +59,11 @@ public class Oauth2KakaoService {
 
         String kakaoToken = getKakaoToken(code);
         Member member = getMemberByKaKaoToken(kakaoToken);
+
         // 로그인 로그
         MemberLogInLog memberLogInLog = MemberLogInLog.create(member);
         memberLogInLogRepository.save(memberLogInLog);
 
-        // 로그인
         return jwtTokenFactory.generateJwtToken(member);
     }
 

@@ -46,6 +46,7 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
 
             return token.substring(TOKEN_PREFIX.length());
         }
+
         return null;
     }
 

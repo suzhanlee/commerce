@@ -6,6 +6,7 @@ import com.commerce.web.domain.auth.service.Oauth2LoginService;
 import com.commerce.web.global.path.ApiPath;
 import com.commerce.web.global.security.JwtTokenFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,7 @@ public class Oauth2Controller {
 
     @PostMapping(ApiPath.LOGIN_OAUTH2)
     public JwtTokenDto loginOauth2(@Validated @RequestBody LoginOauth2Rq rq) {
+
         return oauth2LoginService.loginOauth2(rq);
     }
 

@@ -1,7 +1,6 @@
 package com.commerce.web.domain.auth.service;
 
 import com.commerce.web.domain.auth.model.dto.JwtTokenDto;
-import com.commerce.web.global.security.JwtAuthenticationToken;
 import com.commerce.web.global.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
