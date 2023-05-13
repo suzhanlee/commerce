@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class Oauth2Controller {
 
     private final Oauth2LoginService oauth2LoginService;
-    private final JwtTokenFactory jwtTokenFactory;
 
     @PostMapping(ApiPath.LOGIN_OAUTH2)
     public JwtTokenDto loginOauth2(@Validated @RequestBody LoginOauth2Rq rq) {
