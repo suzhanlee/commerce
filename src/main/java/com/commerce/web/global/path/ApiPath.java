@@ -5,9 +5,12 @@ public class ApiPath {
 
     public static final String SIGNIN = "/api/signin";
     public static final String LOGIN_OAUTH2 = "/api/login/oauth2";
+
     public static final String MEMBER = "/api/member";
     public static final String MEMBER_ITEM = "/api/member/item";
     public static final String MEMBER_ID = "/api/member/{member-id}";
+    public static final String MEMBER_MYSELF = "/api/member/myself";
+
     public static final String ITEM = "/api/item";
     public static final String ITEM_CATEGORY_ID = "/api/item/{category-id}";
 

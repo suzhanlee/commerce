@@ -2,8 +2,7 @@ package com.commerce.web.global.security;
 
 import com.commerce.db.entity.member.Member;
 import com.commerce.web.domain.auth.model.dto.JwtTokenDto;
-import com.commerce.web.domain.member.service.FindMemberService;
-import com.commerce.web.domain.member.service.MemberService;
+import com.commerce.web.global.uitil.DateUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -11,12 +10,16 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
+import static com.commerce.web.global.security.constant.JwtConstants.CLIENT_TYPE;
 import static com.commerce.web.global.security.constant.JwtConstants.EMAIL;
 import static com.commerce.web.global.security.constant.JwtConstants.TOKEN_EXPIRE_TIME;
 
@@ -28,24 +31,25 @@ public class JwtTokenFactory {
     private String secretKey;
 
     public JwtTokenDto generateJwtToken(Member member) {
-
-        // TODO: 2023-05-02 구현
-
-        Claims claims = Jwts.claims().setSubject(member.getName());
-        claims.put(EMAIL, member.getEmail());
-
-        Date now = new Date();
-        Date expiredDate = new Date(now.getTime() + TOKEN_EXPIRE_TIME);
-
+        Date now = DateUtils.now();
+        Date expiredDate = DateUtils.addTime(now, TOKEN_EXPIRE_TIME);
         String token = Jwts.builder()
-                .setClaims(claims)
+                .setClaims(createClaims(member))
                 .setIssuedAt(now)
                 .setExpiration(expiredDate)
                 .signWith(SignatureAlgorithm.HS512, secretKey)
                 .compact();
 
-        return JwtTokenDto.createJwtTokenDto(token, String.valueOf(expiredDate));
+        LocalDateTime expiredDateTime = LocalDateTime.ofInstant(expiredDate.toInstant(), ZoneId.systemDefault());
+        return JwtTokenDto.createJwtTokenDto(token, expiredDateTime);
 
+    }
+
+    private Map<String, Object> createClaims(Member member) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put(EMAIL, member.getEmail());
+        claims.put(CLIENT_TYPE, member.getClientType());
+        return claims;
     }
 
     public boolean validateToken(String token) {

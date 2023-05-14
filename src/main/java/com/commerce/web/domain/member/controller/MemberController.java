@@ -4,12 +4,15 @@ import com.commerce.web.domain.member.model.rq.CreateMemberRq;
 import com.commerce.web.domain.member.model.rq.DeleteMemberRq;
 import com.commerce.web.domain.member.model.rq.UpdateMemberRq;
 import com.commerce.web.domain.member.model.rs.FindMemberByIdRs;
+import com.commerce.web.domain.member.model.rs.FindMySelfRs;
 import com.commerce.web.domain.member.service.FindMemberService;
 import com.commerce.web.domain.member.service.MemberService;
 import com.commerce.web.global.path.ApiPath;
+import com.commerce.web.global.security.MemberContext;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +42,11 @@ public class MemberController {
         return findMemberService.findMemberById(memberId);
     }
 
+    @GetMapping(ApiPath.MEMBER_MYSELF)
+    public FindMySelfRs findMySelf(@AuthenticationPrincipal MemberContext memberContext) {
+        return findMemberService.findMySelf(memberContext);
+    }
+
     @Operation(summary = "", description = "")
     @PutMapping(ApiPath.MEMBER)
     public void updateMember(@Validated @RequestBody UpdateMemberRq rq) {
@@ -56,9 +64,8 @@ public class MemberController {
     @Operation(summary = "", description = "")
     @DeleteMapping(ApiPath.MEMBER_ITEM)
     public void deleteItemByMember(@Validated @RequestBody DeleteMemberRq rq) {
-
         memberService.deleteItem(rq);
-
     }
+
 
 }
