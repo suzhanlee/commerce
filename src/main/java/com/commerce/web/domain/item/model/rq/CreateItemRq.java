@@ -1,12 +1,15 @@
 package com.commerce.web.domain.item.model.rq;
 
+import com.commerce.db.entity.item.Book;
+import com.commerce.db.entity.item.Item;
+import com.commerce.db.entity.item.Laptop;
+import com.commerce.db.entity.item.Vegetable;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@Builder
 public class CreateItemRq {
 
     @NotNull
@@ -27,16 +30,17 @@ public class CreateItemRq {
     @NotEmpty
     private String image;
 
-    private String author;
+    private Vegetable vegetable;
+    private Book book;
+    private Laptop laptop;
 
-    private String isbn;
-
-    private int ram;
-
-    private String cpu;
-
-    private int ssd;
-
-    private String origin;
+//    public static Item createItemByRq(CreateItemRq rq) {
+//
+//        Item item = new Item();
+//        item.description = rq.getDescription(); // 이런거 안되는데 그럼 entity쪽에 만들어야 할까? 아니면
+//        // 예전에 만든거처럼 BUilder를 사용해야할까?
+//
+//
+//    }
 
 }

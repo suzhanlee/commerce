@@ -49,6 +49,8 @@ public class Member {
     @OneToMany(fetch = LAZY, mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> itemList = new ArrayList<>();
 
+    private Long balance;
+
     public static Member createSeller(String name, String email, String phone) {
         Member member = new Member();
         member.name = name;
@@ -73,6 +75,14 @@ public class Member {
         member.email = email;
         member.memberRole = MemberRole.ROLE_SELLER;
         return member;
+    }
+
+    public void topUpMoney(Long money) {
+        this.balance += money;
+    }
+
+    public void spendMoney(Long money) {
+        this.balance -= money;
     }
 
 }

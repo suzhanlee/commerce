@@ -14,29 +14,12 @@ import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Getter
-@NoArgsConstructor(access = PROTECTED)
 public class Book {
 
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "id")
-    private Long id;
 
     private String author;  //저자
 
     private String isbn;    // 책번호
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_id")
-    private Item item;
-
-    public static Book create(String author, String isbn, Item item) {
-        Book book = new Book();
-        book.author = author;
-        book.isbn = isbn;
-        book.item = item;
-        return book;
-    }
 }
