@@ -10,7 +10,7 @@ import com.commerce.web.domain.member.repository.MemberRepository;
 import com.commerce.web.domain.member.repository.MemberSignUpLogRepository;
 import com.commerce.web.domain.member.service.FindMemberService;
 import com.commerce.web.global.exception.AuthenticationException;
-import com.commerce.web.global.security.JwtTokenFactory;
+import com.commerce.web.global.security.jwt.JwtTokenFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONObject;

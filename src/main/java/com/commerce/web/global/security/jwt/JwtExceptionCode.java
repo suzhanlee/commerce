@@ -1,4 +1,4 @@
-package com.commerce.web.global.security;
+package com.commerce.web.global.security.jwt;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

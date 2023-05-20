@@ -1,6 +1,7 @@
 package com.commerce.web.global.security;
 
 import com.commerce.web.global.security.filter.JwtAuthenticationFilter;
+import com.commerce.web.global.security.jwt.CustomAccessDeniedHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +20,9 @@ import static com.commerce.web.global.security.constant.SecurityConstants.AUTH_W
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final JwtTokenProvider jwtTokenProvider;
+    private final OauthAuthenticationEntryPoint oauthAuthenticationEntryPoint;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final CustomAccessDeniedHandler customAccessDeniedHandler;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -35,9 +38,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize.requestMatchers(AUTH_WHITELIST).permitAll()
                         .anyRequest().authenticated());
         http
-                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling()
-                .authenticationEntryPoint(new OauthAuthenticationEntryPoint());
+                .accessDeniedHandler(customAccessDeniedHandler)
+                .authenticationEntryPoint(oauthAuthenticationEntryPoint);
 
         return http.build();
     }

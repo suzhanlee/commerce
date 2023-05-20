@@ -1,4 +1,4 @@
-package com.commerce.web.global.security;
+package com.commerce.web.global.security.jwt;
 
 import com.commerce.db.entity.member.Member;
 import com.commerce.web.domain.auth.model.dto.JwtTokenDto;

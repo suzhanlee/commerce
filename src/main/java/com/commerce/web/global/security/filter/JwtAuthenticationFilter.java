@@ -1,7 +1,7 @@
 package com.commerce.web.global.security.filter;
 
-import com.commerce.web.global.security.JwtExceptionCode;
-import com.commerce.web.global.security.JwtTokenProvider;
+import com.commerce.web.global.security.jwt.JwtExceptionCode;
+import com.commerce.web.global.security.jwt.JwtTokenProvider;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;

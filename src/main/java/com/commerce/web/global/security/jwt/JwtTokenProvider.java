@@ -1,7 +1,8 @@
-package com.commerce.web.global.security;
+package com.commerce.web.global.security.jwt;
 
 import com.commerce.db.enums.auth.ClientType;
 import com.commerce.web.domain.auth.model.dto.JwtTokenDto;
+import com.commerce.web.global.security.MemberContext;
 import com.commerce.web.global.uitil.DateUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
