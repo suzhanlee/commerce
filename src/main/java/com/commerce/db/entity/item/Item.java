@@ -6,6 +6,7 @@ import static lombok.AccessLevel.PROTECTED;
 import com.commerce.db.entity.BaseTimeEntity;
 import com.commerce.db.entity.Category;
 import com.commerce.db.entity.member.Member;
+import com.commerce.db.entity.payment.Payment;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
