@@ -8,17 +8,33 @@ spring:
     hibernate:
       ddl-auto: update
     open-in-view: false
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: ${kakao.client.id}
+            redirect-uri: ${kakao.redirect.uri}
+            grant-type: ${kakao.grant.type}
+          google:
+            client-id: ${google.client.id}
+            client-secret: ${google.client.secret}
+            redirect-uri: ${google.redirect.uri}
+            grant-type: ${google.grant.type}
+#  main:
+#    allow-circular-references: true
+#            scope: profile,email
+
+jwt:
+  header: ${jwt.header}
+  #HS512 알고리즘을 사용할 것이기 때문에 512bit, 즉 64byte 이상의 secret key를 사용해야 한다.
+  #echo 'silvernine-tech-spring-boot-jwt-tutorial-secret-silvernine-tech-spring-boot-jwt-tutorial-secret' 이라는 문자열을 base64로 인코딩
+  secret: ${jwt.secret}
 
 decorator:
   datasource:
     p6spy:
       enable-logging: on
-
-#springdoc:
-#  swagger-ui:
-#    display-request-duration: true
-#    doc-expansion: none
-#    tags-sorter: alpha
 
 springdoc:
   api-docs:
@@ -31,10 +47,4 @@ springdoc:
     operationsSorter: method
     disable-swagger-default-url: true
     display-request-duration: true
-#  api-docs:
-#    path: /api-docs
-#  show-actuator: true
-#  default-consumes-media-type: application/json
-#  default-produces-media-type: application/json
-#  paths-to-match:
-#    - /v1/**
+
