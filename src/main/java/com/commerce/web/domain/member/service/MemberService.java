@@ -4,6 +4,7 @@ import com.commerce.db.entity.item.Item;
 import com.commerce.db.entity.member.Member;
 import com.commerce.web.domain.member.model.rq.CreateMemberRq;
 import com.commerce.web.domain.member.model.rq.DeleteMemberRq;
+import com.commerce.web.domain.member.model.rq.ToUpRq;
 import com.commerce.web.domain.member.repository.MemberRepository;
 import com.commerce.web.global.exception.CannotFindMemberException;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final FindMemberService findMemberService;
 
     public void createMember(CreateMemberRq rq) {
         Member member = Member.createSeller(rq.getName(), rq.getEmail(), rq.getPhone());
@@ -36,6 +38,13 @@ public class MemberService {
         for (Item item : member.getItemList()) {
             System.out.println("item = " + item);
         }
+    }
+
+    public void topUpMoney(ToUpRq rq) {
+
+        Member member = findMemberService.findByIdOrElseThrow(rq.getMemberId());
+        member.topUpMoney(rq.getMoney());
+
     }
 }
 

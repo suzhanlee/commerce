@@ -1,6 +1,7 @@
 package com.commerce.web.global.security.jwt;
 
 import com.commerce.db.entity.member.Member;
+import com.commerce.db.enums.auth.ClientType;
 import com.commerce.web.domain.auth.model.dto.JwtTokenDto;
 import com.commerce.web.global.uitil.DateUtils;
 import io.jsonwebtoken.Claims;
@@ -9,6 +10,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -52,35 +54,19 @@ public class JwtTokenFactory {
         return claims;
     }
 
-    public boolean validateToken(String token) {
-        Claims claims = parseClaim(token);
-        Date expiredDateTime = claims.getExpiration();
-
-        if (!StringUtils.hasText(token)) {
-            return false;
-        }
-
-        return !expiredDateTime.before(new Date());
-    }
-
-    public String getUsername(String token) {
-        return parseClaim(token).getSubject();
-    }
-
-    public String getEmail(String token) {
-        return (String) parseClaim(token).get("email");
-    }
-
-    private Claims parseClaim(String token) {
-
-        try {
-            return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
-        } catch (ExpiredJwtException e) {
-            return e.getClaims();
-        }
+    private Claims parseClaims(String token) {
+        return Jwts.parserBuilder()
+            .setSigningKey(secretKey)
+            .build()
+            .parseClaimsJws(token)
+            .getBody();
     }
 
     public Authentication getAuthentication(String token) {
-        return null;
+        Claims claims = parseClaims(token);
+        String email = claims.get(EMAIL, String.class);
+        ClientType clientType = ClientType.valueOf(claims.get(CLIENT_TYPE, String.class));
+        MemberContext memberContext = MemberContext.create(email, clientType);
+        return new UsernamePasswordAuthenticationToken(memberContext, null, null);
     }
 }
