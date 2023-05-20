@@ -1,7 +1,7 @@
 package com.commerce.web.global.security.filter;
 
-import com.commerce.web.global.security.JwtExceptionCode;
-import com.commerce.web.global.security.JwtTokenProvider;
+import com.commerce.web.global.security.jwt.JwtExceptionCode;
+import com.commerce.web.global.security.jwt.JwtTokenProvider;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
@@ -24,7 +24,7 @@ import static com.commerce.web.global.security.constant.JwtConstants.TOKEN_PREFI
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final JwtTokenFactory jwtTokenFactory;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -50,7 +50,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private void authentication(String token) {
         if (StringUtils.hasText(token) && token.startsWith(TOKEN_PREFIX)) {
             token = token.substring(TOKEN_PREFIX.length());
-            Authentication authentication = jwtTokenFactory.getAuthentication(token);
+            Authentication authentication = jwtTokenProvider.getAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
     }
