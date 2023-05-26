@@ -1,7 +1,7 @@
 package com.commerce.web.global.exception.handler;
 
+import com.commerce.web.global.exception.AccessDeniedException;
 import com.commerce.web.global.exception.GeneralException;
-import com.commerce.web.global.security.JwtExceptionCode;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
@@ -76,6 +76,15 @@ public class CustomExceptionHandler {
             .message("인증이 실패했습니다.")
             .build();
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ErrorResponse> generalHttpExceptionHandler(AccessDeniedException e) {
+        ErrorResponse errorResponse = ErrorResponse.builder()
+            .httpStatus(e.getHttpStatus().value())
+            .message(e.getMessage())
+            .build();
+        return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
     }
 
 }
