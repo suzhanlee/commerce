@@ -11,12 +11,16 @@ public class JwtTokenDto {
     @Schema(name = "토큰")
     private String token;
 
+    @Schema(name = "리프레시 토큰")
+    private String refreshToken;
+
     @Schema(name = "만료시간")
     private LocalDateTime expiredDateTime;
 
-    public static JwtTokenDto createJwtTokenDto(String token, LocalDateTime expiredDateTime) {
+    public static JwtTokenDto createJwtTokenDto(String token, String refreshToken, LocalDateTime expiredDateTime) {
         JwtTokenDto jwtTokenDto = new JwtTokenDto();
         jwtTokenDto.token = token;
+        jwtTokenDto.refreshToken = refreshToken;
         jwtTokenDto.expiredDateTime = expiredDateTime;
         return jwtTokenDto;
     }

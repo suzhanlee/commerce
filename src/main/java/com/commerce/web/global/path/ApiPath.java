@@ -17,6 +17,7 @@ public class ApiPath {
     public static final String RATING = "/api/rating";
 
     public static final String ACCESS_DENIED = "/exception/access-denied";
+    public static final String REFRESH = "/api/refresh";
 
 //    public static final String ITEM_MEMBERID = "/api/item/{member-id}";
 

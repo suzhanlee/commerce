@@ -8,6 +8,7 @@ import com.commerce.web.domain.auth.service.JwtLoginService;
 import com.commerce.web.global.path.ApiPath;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,5 +27,10 @@ public class JwtController {
 
         return jwtLoginService.login(username, password);
 
+    }
+
+    @GetMapping(ApiPath.REFRESH)
+    public JwtTokenDto reissueToken(@RequestBody String refreshToken) {
+        return jwtLoginService.reissueToken(refreshToken);
     }
 }
