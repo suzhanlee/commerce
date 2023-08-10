@@ -20,7 +20,7 @@ import static com.commerce.web.global.security.constant.SecurityConstants.AUTH_W
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final OauthAuthenticationEntryPoint oauthAuthenticationEntryPoint;
+    private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final CustomAccessDeniedHandler customAccessDeniedHandler;
 
@@ -41,7 +41,7 @@ public class SecurityConfig {
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling()
                 .accessDeniedHandler(customAccessDeniedHandler)
-                .authenticationEntryPoint(oauthAuthenticationEntryPoint);
+                .authenticationEntryPoint(customAuthenticationEntryPoint);
 
         return http.build();
     }
