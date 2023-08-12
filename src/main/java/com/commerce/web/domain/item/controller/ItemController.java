@@ -39,4 +39,11 @@ public class ItemController {
     }
 
 
+    @GetMapping("/api")
+    public void saveItem(){
+        itemService.saveItem1();
+        itemService.saveItem2();
+    }
+
+
 }

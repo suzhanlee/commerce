@@ -15,6 +15,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import java.util.function.Predicate;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
@@ -22,7 +23,7 @@ import org.springframework.lang.Nullable;
 @Entity
 @Getter
 @NoArgsConstructor
-public class Item extends BaseTimeEntity {
+public class Item extends BaseTimeEntity{
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -63,6 +64,13 @@ public class Item extends BaseTimeEntity {
         item.vegetable = vegetable;
         item.laptop = laptop;
         item.book = book;
+        return item;
+    }
+
+    public static Item create(String name, Long price) {
+        Item item = new Item();
+        item.name = name;
+        item.price = price;
         return item;
     }
 }

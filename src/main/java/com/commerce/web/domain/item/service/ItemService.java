@@ -14,6 +14,8 @@ import com.commerce.web.domain.item.repository.ItemRepository;
 import com.commerce.web.domain.member.service.FindMemberService;
 import com.commerce.web.domain.payment.repository.PaymentRepository;
 import com.commerce.web.domain.recommend.service.RecommendationService;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -97,4 +99,45 @@ public class ItemService {
         return new FindItemRs(item, items);
 
     }
+
+    public void saveItem1() {
+
+        List<Item> list = new ArrayList<>();
+
+        for (int i = 0; i < 1000; i++) {
+
+            Item item = Item.create("책" + i, 10000L);
+            list.add(item);
+
+        }
+
+        long before = System.currentTimeMillis();
+        list.parallelStream().forEach(itemRepository::save);
+
+        long after = System.currentTimeMillis();
+
+        System.out.println("소요시간1 " + String.valueOf(after - before));
+    }
+
+    public void saveItem2() {
+
+        List<Item> list = new ArrayList<>();
+        for (int i = 0; i < 1000; i++) {
+
+            Item item = Item.create("책" + i, 10000L);
+            list.add(item);
+        }
+
+        long before = System.currentTimeMillis();
+        itemRepository.saveAll(list);
+        long after = System.currentTimeMillis();
+
+        System.out.println("소요시간2 " + String.valueOf(after - before));
+
+
+    }
+
+
+
+
 }
