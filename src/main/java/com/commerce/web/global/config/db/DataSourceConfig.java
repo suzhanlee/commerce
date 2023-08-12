@@ -17,6 +17,5 @@ public class DataSourceConfig {
         config.setPassword("root");
         return new HikariDataSource(config);
     }
-
-
 }
+

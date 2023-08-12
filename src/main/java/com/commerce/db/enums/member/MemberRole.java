@@ -8,4 +8,5 @@ public enum MemberRole {
     ROLE_CUSTOMER("구매자");
 
     private final String name;
+
 }

@@ -58,7 +58,6 @@ public class MemberController {
     public void deleteMember(@Validated @RequestBody DeleteMemberRq rq) {
 
         memberService.deleteMember(rq);
-
     }
 
     @Operation(summary = "", description = "")

@@ -25,7 +25,7 @@ public class RecommendationService {
 
         List<Rating> userRatings = ratingRepository.findByMember(member);
 
-        // 모든 사용자의 평가를 수집
+        // 1. 모든 사용자의 평가를 수집
         Map<Member, Map<Item, Integer>> userRatingsMap = new HashMap<>();
         for (Rating rating : ratingRepository.findAll()) {
             Member currentMember = rating.getMember();
@@ -36,7 +36,7 @@ public class RecommendationService {
                 .put(currentItem, currentRating);
         }
 
-        // 코사인 유사도를 이용하여 사용자 간의 유사도를 계산
+        // 2. 코사인 유사도를 이용하여 사용자 간의 유사도를 계산
         Map<Member, Double> userSimilarities = new HashMap<>();
         for (Member otherUser : userRatingsMap.keySet()) {
             if (!otherUser.equals(member)) {
@@ -45,7 +45,7 @@ public class RecommendationService {
             }
         }
 
-        // 유사한 사용자를 기반으로 아이템 추천을 생성
+        // 3. 유사한 사용자를 기반으로 아이템 추천을 생성
         Map<Item, Double> itemRecommendations = new HashMap<>();
         for (Member otherUser : userSimilarities.keySet()) {
             double similarity = userSimilarities.get(otherUser);
@@ -58,7 +58,7 @@ public class RecommendationService {
             }
         }
 
-        //추천된 아이템을 정렬하여 반환
+        // 4. 추천된 아이템을 정렬하여 반환
         List<Item> recommendedItems = itemRecommendations.entrySet().stream()
             .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
             .limit(5)
@@ -68,6 +68,7 @@ public class RecommendationService {
         return recommendedItems;
     }
 
+    // 5. 구체적인 코드
     private double calculateCosineSimilarity(Map<Item, Integer> ratings1, Map<Item, Integer> ratings2) {
         double dotProduct = 0.0;
         double norm1 = 0.0;

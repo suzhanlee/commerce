@@ -7,6 +7,7 @@ import static com.commerce.web.global.security.jwt.JwtExceptionCode.MALFORMED;
 import static com.commerce.web.global.security.jwt.JwtExceptionCode.UNSUPPORTED;
 
 
+import com.commerce.web.global.security.jwt.JwtExceptionCode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,43 +33,23 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
 
         if (exception == EXPIRED) {
 
-            error = ErrorResponse
-                .builder()
-                .error(EXPIRED.getCode())
-                .message(EXPIRED.getMessage())
-                .build();
+            error = createErrorResponse(error, EXPIRED);
 
         } else if (exception == MALFORMED) {
 
-            error = ErrorResponse
-                .builder()
-                .error(MALFORMED.getCode())
-                .message(MALFORMED.getMessage())
-                .build();
+            error = createErrorResponse(error, MALFORMED);
 
         } else if (exception == UNSUPPORTED) {
 
-            error = ErrorResponse
-                .builder()
-                .error(UNSUPPORTED.getCode())
-                .message(UNSUPPORTED.getMessage())
-                .build();
+            error = createErrorResponse(error, UNSUPPORTED);
 
         } else if (exception == INVALID) {
 
-            error = ErrorResponse
-                .builder()
-                .error(INVALID.getCode())
-                .message(INVALID.getMessage())
-                .build();
+            error = createErrorResponse(error, INVALID);
 
         } else if (exception == INVALID_SIGNATURE) {
 
-            error = ErrorResponse
-                .builder()
-                .error(INVALID_SIGNATURE.getCode())
-                .message(INVALID_SIGNATURE.getMessage())
-                .build();
+            error = createErrorResponse(error, INVALID_SIGNATURE);
 
         }
 
@@ -79,5 +60,15 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         response.getWriter().write(result);
 
         // vs sendRedirect로 ExceptionController로 보내기
+    }
+
+    private static ErrorResponse createErrorResponse(ErrorResponse error,
+        JwtExceptionCode expired) {
+        error = ErrorResponse
+            .builder()
+            .error(expired.getCode())
+            .message(expired.getMessage())
+            .build();
+        return error;
     }
 }
